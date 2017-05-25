@@ -32,6 +32,18 @@
     ],
     "main": "./out/src/extension",
     "contributes": {
+        "commands": [
+            {
+                "command": "extension.cssrem",
+                "title": "CSSRem PxToRem"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.cssrem",
+                "key": "ctrl+p ctrl+r"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "cssrem 配置",

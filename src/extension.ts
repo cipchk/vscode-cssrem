@@ -1,43 +1,35 @@
 'use strict';
 import * as vscode from 'vscode';
+import { CssRemProcess } from './process';
+import { CssRemProvider } from './provider';
 
 let cog = null;
 export function activate(context: vscode.ExtensionContext) {
-    
+
     cog = vscode.workspace.getConfiguration('cssrem');
 
-    vscode.languages.getLanguages().then(data => console.log(data));
-
-    let provider = new CssRemProvider();
-    const LANS = [ 'html', 'css', 'less', 'scss', 'sass', 'stylus' ];
+    const process = new CssRemProcess(cog);
+    let provider = new CssRemProvider(process);
+    const LANS = ['html', 'css', 'less', 'scss', 'sass', 'stylus'];
     for (let lan of LANS) {
         let providerDisposable = vscode.languages.registerCompletionItemProvider(lan, provider);
         context.subscriptions.push(providerDisposable);
     }
-}
 
-class CssRemProvider implements vscode.CompletionItemProvider {
-    provideCompletionItems (document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
-
-        return new Promise((resolve, reject) => {
-            let lineText = document.getText(new vscode.Range(position.with(undefined, 0), position));
-            let match = lineText.match(/([\d.]+)p(x)?/);
-            if (!match) {
-                return resolve([]);
-            }
-
-            const value = parseFloat(match[1]);
-            let remValue: number | string = +(value / cog.rootFontSize).toFixed(cog.fixedDigits);
-            if (cog.autoRemovePrefixZero) {
-                if (remValue.toString().startsWith('0.'))
-                    remValue = remValue.toString().substring(1);
-            }
-            const item = new vscode.CompletionItem(`${value}px -> ${remValue}rem`, vscode.CompletionItemKind.Snippet);
-            item.insertText = `${remValue}rem`;
-            return resolve([item]);
-
+    context.subscriptions.push(vscode.commands.registerTextEditorCommand('extension.cssrem', (textEditor, edit) => {
+        const doc = textEditor.document;
+        let selection: vscode.Selection | vscode.Range = textEditor.selection;
+        if (selection.isEmpty) {
+            const start = new vscode.Position(0, 0);
+            const end = new vscode.Position(doc.lineCount - 1, doc.lineAt(doc.lineCount - 1).text.length);
+            selection = new vscode.Range(start, end);
+        }
+        
+        let text = doc.getText(selection);
+        textEditor.edit(builder => {
+            builder.replace(selection, process.convertAll(text));
         });
-    }
+    }));
 }
 
 // this method is called when your extension is deactivated
