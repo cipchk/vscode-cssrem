@@ -16,6 +16,10 @@ ext install cssrem
 + Shortcuts: `ctrl+p ctrl+r`
 + CLI: Press `F1`, enter `cssrem`
 
+# Support Language
+
+html vue css less scss sass stylus
+
 # Configuration
 
 + `cssrem.rootFontSize` root font-size (unit: px), default: 16
