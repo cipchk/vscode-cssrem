@@ -24,6 +24,7 @@
     ],
     "activationEvents": [
         "onLanguage:html",
+        "onLanguage:vue",
         "onLanguage:css",
         "onLanguage:less",
         "onLanguage:scss",

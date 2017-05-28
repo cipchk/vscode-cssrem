@@ -10,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     const process = new CssRemProcess(cog);
     let provider = new CssRemProvider(process);
-    const LANS = ['html', 'css', 'less', 'scss', 'sass', 'stylus'];
+    const LANS = ['html', 'vue', 'css', 'less', 'scss', 'sass', 'stylus'];
     for (let lan of LANS) {
         let providerDisposable = vscode.languages.registerCompletionItemProvider(lan, provider);
         context.subscriptions.push(providerDisposable);
