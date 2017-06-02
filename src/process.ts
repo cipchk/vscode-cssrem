@@ -4,7 +4,7 @@ export class CssRemProcess {
 
     private rePx: RegExp = /([\d.]+)p(x)?/;
 
-    private rePxAll: RegExp = /([\d.]+)p(x)?/g;
+    private rePxAll: RegExp = /([\d.]+)px/g;
 
     /**
      * 换px转换成rem
