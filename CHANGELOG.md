@@ -1,4 +1,9 @@
+# 0.0.4
+
+- 支持负数 [@lincenying](https://github.com/lincenying)
+
 # 0.0.3
+
 - 修复文档转换影响类名。
 
 # 0.0.2

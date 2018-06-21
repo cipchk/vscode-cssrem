@@ -2,7 +2,7 @@
     "name": "cssrem",
     "displayName": "cssrem",
     "description": "一个CSS值转REM的VSCode插件",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "cipchk",
     "icon": "icon.png",
     "license": "MIT",
