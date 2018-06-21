@@ -2,9 +2,9 @@ export class CssRemProcess {
 
     constructor(private cog: any) { }
 
-    private rePx: RegExp = /([\d.]+)p(x)?/;
+    private rePx: RegExp = /([-]?[\d.]+)p(x)?/;
 
-    private rePxAll: RegExp = /([\d.]+)px/g;
+    private rePxAll: RegExp = /([-]?[\d.]+)px/g;
 
     /**
      * 换px转换成rem
