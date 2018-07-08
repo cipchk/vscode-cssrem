@@ -1,84 +1,93 @@
 {
-    "name": "cssrem",
-    "displayName": "cssrem",
-    "description": "一个CSS值转REM的VSCode插件",
-    "version": "0.0.4",
-    "publisher": "cipchk",
-    "icon": "icon.png",
-    "license": "MIT",
-    "licenseUrl": "LICENSE",
-    "engines": {
-        "vscode": "^1.12.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/cipchk/vscode-cssrem.git"
-    },
-    "bugs": {
-        "url": "https://github.com/cipchk/vscode-cssrem/issues",
-        "email": "cipchk@qq.com"
-    },
-    "homepage": "https://github.com/cipchk/vscode-cssrem",
-    "categories": [
-        "Formatters", "Snippets", "Other"
+  "name": "cssrem",
+  "displayName": "cssrem",
+  "description": "一个CSS值转REM的VSCode插件",
+  "version": "0.0.5",
+  "publisher": "cipchk",
+  "icon": "icon.png",
+  "license": "MIT",
+  "licenseUrl": "LICENSE",
+  "engines": {
+    "vscode": "^1.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cipchk/vscode-cssrem.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cipchk/vscode-cssrem/issues",
+    "email": "cipchk@qq.com"
+  },
+  "homepage": "https://github.com/cipchk/vscode-cssrem",
+  "keywords": [
+    "rem",
+    "px rem",
+    "px to rem",
+    "px2rem",
+    "css rem"
+  ],
+  "categories": [
+    "Formatters",
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:vue",
+    "onLanguage:css",
+    "onLanguage:less",
+    "onLanguage:scss",
+    "onLanguage:sass",
+    "onLanguage:stylus"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.cssrem",
+        "title": "CSSRem PxToRem"
+      }
     ],
-    "activationEvents": [
-        "onLanguage:html",
-        "onLanguage:vue",
-        "onLanguage:css",
-        "onLanguage:less",
-        "onLanguage:scss",
-        "onLanguage:sass",
-        "onLanguage:stylus"
+    "keybindings": [
+      {
+        "command": "extension.cssrem",
+        "key": "ctrl+p ctrl+r"
+      }
     ],
-    "main": "./out/src/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.cssrem",
-                "title": "CSSRem PxToRem"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "extension.cssrem",
-                "key": "ctrl+p ctrl+r"
-            }
-        ],
-        "configuration": {
-            "type": "object",
-            "title": "cssrem 配置",
-            "properties": {
-                "cssrem.rootFontSize": {
-                    "type": "number",
-                    "default": 16,
-                    "description": "root font-size (unit: px), default: 16"
-                },
-                "cssrem.fixedDigits": {
-                    "type": "number",
-                    "default": 6,
-                    "description": "px转rem小数点最大长度，默认：6。"
-                },
-                "cssrem.autoRemovePrefixZero": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "自动移除0开头的前缀，默认：true"
-                }
-            }
+    "configuration": {
+      "type": "object",
+      "title": "cssrem 配置",
+      "properties": {
+        "cssrem.rootFontSize": {
+          "type": "number",
+          "default": 16,
+          "description": "root font-size (unit: px), default: 16"
+        },
+        "cssrem.fixedDigits": {
+          "type": "number",
+          "default": 6,
+          "description": "px转rem小数点最大长度，默认：6。"
+        },
+        "cssrem.autoRemovePrefixZero": {
+          "type": "boolean",
+          "default": true,
+          "description": "自动移除0开头的前缀，默认：true"
         }
-    },
-    "scripts": {
-        "vscode:prepublish": "tsc -p ./",
-        "compile": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test",
-        "package": "vsce package"
-    },
-    "devDependencies": {
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.0",
-        "mocha": "^2.3.3",
-        "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.32"
+      }
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "typescript": "^2.0.3",
+    "vscode": "^1.0.0",
+    "mocha": "^2.3.3",
+    "@types/node": "^6.0.40",
+    "@types/mocha": "^2.2.32"
+  }
 }
