@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "cssrem",
   "description": "一个CSS值转REM的VSCode插件",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -46,12 +46,6 @@
       {
         "command": "extension.cssrem",
         "title": "CSSRem PxToRem"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "extension.cssrem",
-        "key": "ctrl+p ctrl+r"
       }
     ],
     "configuration": {

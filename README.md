@@ -13,7 +13,6 @@ ext install cssrem
 # How To Use
 
 + Auto snippet
-+ Shortcuts: `ctrl+p ctrl+r`
 + CLI: Press `F1`, enter `cssrem`
 
 # Support Language
