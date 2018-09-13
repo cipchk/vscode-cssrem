@@ -1,8 +1,10 @@
 # cssrem
 
-一个CSS值转REM的VSCode插件
+A `px` to `rem` plugin in VSCode
 
-![效果图](screenshots/cssrem.gif)
+[中文版](README.zh-CN.md)
+
+![](screenshots/cssrem.gif)
 
 # Install
 
@@ -17,12 +19,14 @@ ext install cssrem
 
 # Support Language
 
-html vue css less scss sass stylus
+html vue css less scss sass stylus tpl（php smarty3）
 
 # Configuration
 
-+ `cssrem.rootFontSize` root font-size (unit: px), default: 16
-+ `cssrem.fixedDigits` px转rem小数点最大长度，默认：6。
-+ `cssrem.autoRemovePrefixZero` 自动移除0开头的前缀，默认：true
+Open your user and workspace settings (`File > Preferences > Settings`):
 
-Restart vscode **[!Important]**
++ `cssrem.rootFontSize` root font-size (unit: px), default: 16
++ `cssrem.fixedDigits` `px` to `rem` decimal point maximum length, default: 6
++ `cssrem.autoRemovePrefixZero` Automatically remove prefix 0, default: true
+
+**NOTE:** Muse be restart vscode after modification

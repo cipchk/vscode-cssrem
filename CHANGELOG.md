@@ -1,3 +1,7 @@
+# 0.0.7
+
+- add smarty3 `.tpl` file type
+
 # 0.0.6
 
 - 移除快捷键，[#9](https://github.com/cipchk/vscode-cssrem/issues/9)

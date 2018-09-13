@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "cssrem",
   "description": "一个CSS值转REM的VSCode插件",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -38,7 +38,8 @@
     "onLanguage:less",
     "onLanguage:scss",
     "onLanguage:sass",
-    "onLanguage:stylus"
+    "onLanguage:stylus",
+    "onLanguage:tpl"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -50,7 +51,7 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "cssrem 配置",
+      "title": "cssrem configuration",
       "properties": {
         "cssrem.rootFontSize": {
           "type": "number",
@@ -60,12 +61,12 @@
         "cssrem.fixedDigits": {
           "type": "number",
           "default": 6,
-          "description": "px转rem小数点最大长度，默认：6。"
+          "description": "Px to rem decimal point maximum length, default: 6"
         },
         "cssrem.autoRemovePrefixZero": {
           "type": "boolean",
           "default": true,
-          "description": "自动移除0开头的前缀，默认：true"
+          "description": "Automatically remove prefix 0, default: true"
         }
       }
     }
