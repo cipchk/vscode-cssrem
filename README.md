@@ -25,8 +25,11 @@ html vue css less scss sass stylus tpl（php smarty3）
 
 Open your user and workspace settings (`File > Preferences > Settings`):
 
-+ `cssrem.rootFontSize` root font-size (unit: px), default: 16
-+ `cssrem.fixedDigits` `px` to `rem` decimal point maximum length, default: 6
-+ `cssrem.autoRemovePrefixZero` Automatically remove prefix 0, default: true
+Name | Description | Default
+---- | ----------- | -------
+`cssrem.rootFontSize` | root font-size (Unit: `px`) | `16`
+`cssrem.fixedDigits` | `px` to `rem` decimal point maximum length | `6`
+`cssrem.autoRemovePrefixZero` | Automatically remove prefix 0 | `true`
+`cssrem.ingoresViaCommand` | Ignores `px` to `rem` when trigger command (Unit: `string[]`), can be set `[ "1px", "0.5px" ]` | `[]`
 
 **NOTE:** Muse be restart vscode after modification

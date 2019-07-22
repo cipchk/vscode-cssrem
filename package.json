@@ -1,8 +1,8 @@
 {
   "name": "cssrem",
   "displayName": "cssrem",
-  "description": "一个CSS值转REM的VSCode插件",
-  "version": "0.0.7",
+  "description": "A px to rem plugin",
+  "version": "0.1.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -67,14 +67,22 @@
           "type": "boolean",
           "default": true,
           "description": "Automatically remove prefix 0, default: true"
+        },
+        "cssrem.ingoresViaCommand": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: []"
         }
       }
     }
   },
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
-    "compile": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
+    "watch": "tsc -watch -p ./",
     "release": "vsce package"
   },
   "devDependencies": {
