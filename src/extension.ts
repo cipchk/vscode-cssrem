@@ -15,6 +15,9 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(providerDisposable);
   }
 
+  const ingoresViaCommand = ((cog.ingoresViaCommand || []) as string[])
+                                .filter(w=>!!w)
+                                .map(v => v.endsWith('px') ? v : `${v}px`);
   context.subscriptions.push(
     vscode.commands.registerTextEditorCommand('extension.cssrem', (textEditor, edit) => {
       const doc = textEditor.document;
@@ -27,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       let text = doc.getText(selection);
       textEditor.edit(builder => {
-        builder.replace(selection, process.convertAll(text));
+        builder.replace(selection, process.convertAll(text, ingoresViaCommand));
       });
     }),
   );

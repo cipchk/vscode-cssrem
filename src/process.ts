@@ -34,10 +34,11 @@ export class CssRemProcess {
   }
 
   /** 批量转换 */
-  convertAll(code: string): string {
+  convertAll(code: string, ingores: string[]): string {
     if (!code) return code;
 
     return code.replace(this.rePxAll, (word: string) => {
+      if (ingores.includes(word)) return word;
       const res = this.pxToRem(word);
       if (res) return res.rem;
       return word;
