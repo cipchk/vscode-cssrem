@@ -1,3 +1,8 @@
+# 1.0.0
+
+- add `.cssrem` config file
+- add rem to px
+
 # 0.0.7
 
 - add smarty3 `.tpl` file type

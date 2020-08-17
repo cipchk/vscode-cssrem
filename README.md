@@ -1,10 +1,10 @@
 # cssrem
 
-A `px` to `rem` plugin in VSCode
+Converts between `px` and `rem` units in VSCode
 
 [中文版](README.zh-CN.md)
 
-![](screenshots/cssrem.gif)
+![](demo.gif)
 
 # Install
 
@@ -23,7 +23,16 @@ html vue css less scss sass stylus tpl（php smarty3）
 
 # Configuration
 
-Open your user and workspace settings (`File > Preferences > Settings`):
+The `.cssrem` file in the root directory has the highest priority, and it's format is as follows:
+
+```json
+{
+  "rootFontSize": 18,
+  "fixedDigits": 3
+}
+```
+
+Secondly, you can also configure the global. Open your user and workspace settings (`File > Preferences > Settings`):
 
 Name | Description | Default
 ---- | ----------- | -------

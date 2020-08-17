@@ -1,8 +1,8 @@
 {
   "name": "cssrem",
   "displayName": "cssrem",
-  "description": "A px to rem plugin",
-  "version": "0.1.0",
+  "description": "Converts between px and rem units in VSCode",
+  "version": "1.0.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -24,6 +24,7 @@
     "px rem",
     "px to rem",
     "px2rem",
+    "rem to px",
     "css rem"
   ],
   "categories": [
@@ -46,7 +47,11 @@
     "commands": [
       {
         "command": "extension.cssrem",
-        "title": "CSSRem PxToRem"
+        "title": "CSSRem: Px To Rem"
+      },
+      {
+        "command": "extension.cssrem.rem-to-px",
+        "title": "CSSRem: Rem To Px"
       }
     ],
     "configuration": {
@@ -86,8 +91,8 @@
     "release": "vsce package"
   },
   "devDependencies": {
-    "typescript": "^3.5.3",
-    "vscode": "^1.1.35",
-    "@types/node": "^12.6.8"
+    "typescript": "^3.9.7",
+    "vscode": "^1.1.37",
+    "@types/node": "^14.0.27"
   }
 }

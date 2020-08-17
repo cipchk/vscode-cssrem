@@ -1,8 +1,8 @@
 # cssrem
 
-一个将 `px` 转 `rem` 的 VSCode 插件
+一个 `px` 与 `rem` 单位互转的 VSCode 插件
 
-![](screenshots/cssrem.gif)
+![](demo.gif)
 
 # 如何安装
 
@@ -21,7 +21,16 @@ html vue css less scss sass stylus tpl（php smarty3）
 
 # 配置
 
-点击 VS Code 的 `文件 > 首选项 > 设置`，打开设置面板：
+根目录的 `.cssrem` 文件优先级最高，其格式如下：
+
+```json
+{
+  "rootFontSize": 18,
+  "fixedDigits": 3
+}
+```
+
+其次，也可以配置全局，点击 VS Code 的 `文件 > 首选项 > 设置`，打开设置面板：
 
 名称 | 描述 | 默认值
 ---- | --- | -------

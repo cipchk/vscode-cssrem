@@ -1,4 +1,5 @@
 out
 node_modules
 
-cssrem-*.vsix
+*.vsix
+yarn.lock

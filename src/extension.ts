@@ -1,37 +1,60 @@
-'use strict';
-import * as vscode from 'vscode';
+import { ExtensionContext, workspace, languages, commands, Selection, Position, Range, TextEditor } from 'vscode';
+import { join } from 'path';
+import { existsSync, readFileSync } from 'fs';
 import { CssRemProcess } from './process';
 import { CssRemProvider } from './provider';
+import { Config, Type } from './interface';
 
-let cog = null;
-export function activate(context: vscode.ExtensionContext) {
-  cog = vscode.workspace.getConfiguration('cssrem');
+let cog: Config = null;
+let process: CssRemProcess;
 
-  const process = new CssRemProcess(cog);
+function loadConfig(): void {
+  cog = workspace.getConfiguration('cssrem') as any;
+  const cssremConfigPath = join(workspace.rootPath, '.cssrem');
+  if (!existsSync(cssremConfigPath)) return;
+  try {
+    const res = JSON.parse(readFileSync(cssremConfigPath).toString('utf-8'));
+    cog = {
+      ...cog,
+      ...res,
+    };
+  } catch {}
+}
+
+function modifyDocument(textEditor: TextEditor, ingoresViaCommand: string[], type: Type): void {
+  const doc = textEditor.document;
+  let selection: Selection | Range = textEditor.selection;
+  if (selection.isEmpty) {
+    const start = new Position(0, 0);
+    const end = new Position(doc.lineCount - 1, doc.lineAt(doc.lineCount - 1).text.length);
+    selection = new Range(start, end);
+  }
+
+  const text = doc.getText(selection);
+  textEditor.edit(builder => {
+    builder.replace(selection, process.convertAll(text, ingoresViaCommand, type));
+  });
+}
+
+export function activate(context: ExtensionContext) {
+  loadConfig();
+
+  process = new CssRemProcess(cog);
+
   let provider = new CssRemProvider(process);
   const LANS = ['html', 'vue', 'css', 'less', 'scss', 'sass', 'stylus'];
   for (let lan of LANS) {
-    let providerDisposable = vscode.languages.registerCompletionItemProvider(lan, provider);
+    let providerDisposable = languages.registerCompletionItemProvider(lan, provider);
     context.subscriptions.push(providerDisposable);
   }
 
-  const ingoresViaCommand = ((cog.ingoresViaCommand || []) as string[])
-                                .filter(w=>!!w)
-                                .map(v => v.endsWith('px') ? v : `${v}px`);
+  const ingoresViaCommand = ((cog.ingoresViaCommand || []) as string[]).filter(w => !!w).map(v => (v.endsWith('px') ? v : `${v}px`));
   context.subscriptions.push(
-    vscode.commands.registerTextEditorCommand('extension.cssrem', (textEditor, edit) => {
-      const doc = textEditor.document;
-      let selection: vscode.Selection | vscode.Range = textEditor.selection;
-      if (selection.isEmpty) {
-        const start = new vscode.Position(0, 0);
-        const end = new vscode.Position(doc.lineCount - 1, doc.lineAt(doc.lineCount - 1).text.length);
-        selection = new vscode.Range(start, end);
-      }
-
-      let text = doc.getText(selection);
-      textEditor.edit(builder => {
-        builder.replace(selection, process.convertAll(text, ingoresViaCommand));
-      });
+    commands.registerTextEditorCommand('extension.cssrem', textEditor => {
+      modifyDocument(textEditor, ingoresViaCommand, 'pxToRem');
+    }),
+    commands.registerTextEditorCommand('extension.cssrem.rem-to-px', textEditor => {
+      modifyDocument(textEditor, ingoresViaCommand, 'remToPx');
     }),
   );
 }
