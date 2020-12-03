@@ -1,16 +1,14 @@
-import { Result, Rule, RuleOPType, Type, Config } from './interface';
+import { Config, Result, Rule, RuleOPType, Type } from './interface';
 
 export class CssRemProcess {
-  constructor(private cog: Config) {}
-
   private rules: Rule[] = [
     {
+      all: /([-]?[\d.]+)px/g,
       type: 'pxToRem',
       single: /([-]?[\d.]+)p(x)?$/,
-      all: /([-]?[\d.]+)px/g,
       fn: text => {
         const px = parseFloat(text);
-        let resultValue = this.cleanZero((px / this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
+        const resultValue = this.cleanZero((px / this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
         const value = resultValue + 'rem';
         const label = `${px}px -> ${value}`;
         return {
@@ -34,7 +32,7 @@ export class CssRemProcess {
       all: /([-]?[\d.]+)rem/g,
       fn: text => {
         const px = parseFloat(text);
-        let resultValue = this.cleanZero((px * this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
+        const resultValue = this.cleanZero((px * this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
         const value = resultValue + 'px';
         const label = `${px}rem -> ${value}`;
         return {
@@ -58,7 +56,7 @@ export class CssRemProcess {
       all: /([-]?[\d.]+)px/g,
       fn: text => {
         const px = parseFloat(text);
-        let resultValue = this.cleanZero((px * (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
+        const resultValue = this.cleanZero((px * (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
         const value = resultValue + 'rpx';
         const label = `${px}px -> ${value}`;
         return {
@@ -82,7 +80,7 @@ export class CssRemProcess {
       all: /([-]?[\d.]+)rpx/g,
       fn: text => {
         const px = parseFloat(text);
-        let resultValue = this.cleanZero((px / (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
+        const resultValue = this.cleanZero((px / (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
         const value = resultValue + 'px';
         const label = `${px}rpx -> ${value}px`;
         return {
@@ -101,6 +99,35 @@ export class CssRemProcess {
       },
     },
   ];
+  constructor(private cog: Config) {}
+
+  convert(text: string): Result[] {
+    const res = this.getRule('single', text);
+    if (res.length === 0) {
+      return null;
+    }
+
+    return res.map(i => i.rule.fn(i.text));
+  }
+
+  convertAll(code: string, ingores: string[], type: Type): string {
+    if (!code) {
+      return code;
+    }
+
+    const rule = this.rules.find(w => w.type === type);
+
+    return code.replace(rule.all, (word: string) => {
+      if (ingores.includes(word)) {
+        return word;
+      }
+      const res = rule.fn(word);
+      if (res) {
+        return res.value;
+      }
+      return word;
+    });
+  }
 
   private cleanZero(val: string): number {
     if (this.cog.autoRemovePrefixZero) {
@@ -114,8 +141,8 @@ export class CssRemProcess {
   private genDocument(message: string, args: any[]): string {
     // https://github.com/microsoft/vscode-nls/blob/master/src/common/common.ts
     return message.replace(/\{(\d+)\}/g, (match, rest) => {
-      let index = rest[0];
-      let arg = args[index];
+      const index = rest[0];
+      const arg = args[index];
       let replacement = match;
       if (typeof arg === 'string') {
         replacement = arg;
@@ -135,25 +162,5 @@ export class CssRemProcess {
       }
     }
     return result;
-  }
-
-  convert(text: string): Result[] {
-    const res = this.getRule('single', text);
-    if (res.length === 0) return null;
-
-    return res.map(i => i.rule.fn(i.text));
-  }
-
-  convertAll(code: string, ingores: string[], type: Type): string {
-    if (!code) return code;
-
-    const rule = this.rules.find(w => w.type === type);
-
-    return code.replace(rule.all, (word: string) => {
-      if (ingores.includes(word)) return word;
-      const res = rule.fn(word);
-      if (res) return res.value;
-      return word;
-    });
   }
 }

@@ -1,9 +1,9 @@
-import { ExtensionContext, workspace, languages, commands, Selection, Position, Range, TextEditor } from 'vscode';
-import { join } from 'path';
 import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
+import { commands, ExtensionContext, languages, Position, Range, Selection, TextEditor, workspace } from 'vscode';
+import { Config, Type } from './interface';
 import { CssRemProcess } from './process';
 import { CssRemProvider } from './provider';
-import { Config, Type } from './interface';
 
 let cog: Config = null;
 let process: CssRemProcess;
@@ -11,14 +11,18 @@ let process: CssRemProcess;
 function loadConfig(): void {
   cog = workspace.getConfiguration('cssrem') as any;
   const cssremConfigPath = join(workspace.rootPath, '.cssrem');
-  if (!existsSync(cssremConfigPath)) return;
+  if (!existsSync(cssremConfigPath)) {
+    return;
+  }
   try {
     const res = JSON.parse(readFileSync(cssremConfigPath).toString('utf-8'));
     cog = {
       ...cog,
       ...res,
     };
-  } catch {}
+  } catch {
+    //
+  }
 }
 
 function modifyDocument(textEditor: TextEditor, ingoresViaCommand: string[], type: Type): void {
@@ -42,8 +46,8 @@ export function activate(context: ExtensionContext) {
   process = new CssRemProcess(cog);
 
   const LANS = ['html', 'vue', 'css', 'less', 'scss', 'sass', 'stylus', 'wxss'];
-  for (let lan of LANS) {
-    let providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(lan, process));
+  for (const lan of LANS) {
+    const providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(lan, process));
     context.subscriptions.push(providerDisposable);
   }
 
@@ -65,4 +69,6 @@ export function activate(context: ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  //
+}

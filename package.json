@@ -1,6 +1,6 @@
 {
   "name": "cssrem",
-  "displayName": "cssrem",
+  "displayName": "cssrem（px转rem, rpx 小）",
   "description": "Converts between px and rem units in VSCode",
   "version": "1.0.0",
   "publisher": "cipchk",
@@ -107,14 +107,17 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "tsc -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
+    "prod": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "release": "vsce package"
+    "package": "vsce package",
+    "publish": "run-s prod package",
+    "postinstall": "node ./node_modules/vscode/bin/install"
   },
   "devDependencies": {
-    "typescript": "^3.9.7",
-    "vscode": "^1.1.37",
-    "@types/node": "^14.0.27"
+    "@types/node": "^10.12.2",
+    "typescript": "^3.1.6",
+    "vscode": "^1.1.21",
+    "mocha": "^2.3.3",
+    "@types/mocha": "^2.2.32"
   }
 }
