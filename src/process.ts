@@ -1,19 +1,35 @@
-import { Result, Rule, RuleOPType, Type, Config } from './interface';
+import * as nls from 'vscode-nls';
+import { Config, Result, Rule, RuleOPType, Type } from './interface';
+
+const localize = nls.config({ messageFormat: nls.MessageFormat.both })();
 
 export class CssRemProcess {
-  constructor(private cog: Config) {}
-
   private rules: Rule[] = [
     {
+      all: /([-]?[\d.]+)px/g,
       type: 'pxToRem',
       single: /([-]?[\d.]+)p(x)?$/,
-      all: /([-]?[\d.]+)px/g,
       fn: text => {
         const px = parseFloat(text);
-        let resultValue = this.cleanZero((px / this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
+        const resultValue = this.cleanZero((px / this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
         const value = resultValue + 'rem';
         const label = `${px}px -> ${value}`;
-        return { text, px: `${px}px`, pxValue: px, remValue: resultValue, rem: value, value, label };
+        return {
+          text,
+          px: `${px}px`,
+          pxValue: px,
+          remValue: resultValue,
+          rem: value,
+          value,
+          label,
+          documentation: localize(
+            `pxToRem.documentation`,
+            `Convert {0}px to {1} (the current benchmark font-size is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify`,
+            px,
+            value,
+            this.cog.rootFontSize,
+          ),
+        };
       },
     },
     {
@@ -22,13 +38,111 @@ export class CssRemProcess {
       all: /([-]?[\d.]+)rem/g,
       fn: text => {
         const px = parseFloat(text);
-        let resultValue = this.cleanZero((px * this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
+        const resultValue = this.cleanZero((px * this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
         const value = resultValue + 'px';
         const label = `${px}rem -> ${value}`;
-        return { text, px: `${px}px`, pxValue: px, remValue: resultValue, rem: value, value, label };
+        return {
+          text,
+          px: `${px}px`,
+          pxValue: px,
+          remValue: resultValue,
+          rem: value,
+          value,
+          label,
+          documentation: localize(
+            `remToPx.documentation`,
+            `Convert {0}rem to {1} (the current benchmark font-size is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify`,
+            px,
+            value,
+            this.cog.rootFontSize,
+          ),
+        };
+      },
+    },
+    {
+      type: 'pxToRpx',
+      single: /([-]?[\d.]+)p(x)?$/,
+      all: /([-]?[\d.]+)px/g,
+      fn: text => {
+        const px = parseFloat(text);
+        const resultValue = this.cleanZero((px * (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
+        const value = resultValue + 'rpx';
+        const label = `${px}px -> ${value}`;
+        return {
+          text,
+          px: `${px}px`,
+          pxValue: px,
+          rpxValue: resultValue,
+          rpx: value,
+          value,
+          label,
+          documentation: localize(
+            `pxToRpx.documentation`,
+            `**WXSS miniprogram style** Convert {0}px to {1} (the current device width is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify)`,
+            px,
+            value,
+            this.cog.wxssDeviceWidth,
+          ),
+        };
+      },
+    },
+    {
+      type: 'rpxToPx',
+      single: /([-]?[\d.]+)r(p|px)?$/,
+      all: /([-]?[\d.]+)rpx/g,
+      fn: text => {
+        const px = parseFloat(text);
+        const resultValue = this.cleanZero((px / (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
+        const value = resultValue + 'px';
+        const label = `${px}rpx -> ${value}px`;
+        return {
+          text,
+          px: `${px}px`,
+          pxValue: px,
+          rpxValue: resultValue,
+          rpx: value,
+          value,
+          label,
+          documentation: localize(
+            `rpxToPx.documentation`,
+            `**WXSS miniprogram style** Convert {0}rpx to {1} (the current device width is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify)`,
+            px,
+            value,
+            this.cog.wxssDeviceWidth,
+          ),
+        };
       },
     },
   ];
+  constructor(private cog: Config) {}
+
+  convert(text: string): Result[] {
+    const res = this.getRule('single', text);
+    if (res.length === 0) {
+      return null;
+    }
+
+    return res.map(i => i.rule.fn(i.text));
+  }
+
+  convertAll(code: string, ingores: string[], type: Type): string {
+    if (!code) {
+      return code;
+    }
+
+    const rule = this.rules.find(w => w.type === type);
+
+    return code.replace(rule.all, (word: string) => {
+      if (ingores.includes(word)) {
+        return word;
+      }
+      const res = rule.fn(word);
+      if (res) {
+        return res.value;
+      }
+      return word;
+    });
+  }
 
   private cleanZero(val: string): number {
     if (this.cog.autoRemovePrefixZero) {
@@ -39,34 +153,14 @@ export class CssRemProcess {
     return +val;
   }
 
-  private getRule(type: RuleOPType, text: string): { rule: Rule; text: string } | null {
-    console.log(text);
+  private getRule(type: RuleOPType, text: string): Array<{ rule: Rule; text: string }> {
+    const result: Array<{ rule: Rule; text: string }> = [];
     for (const rule of this.rules) {
       const match = text.match(rule[type]);
       if (match) {
-        return { rule, text: match[1] };
+        result.push({ rule, text: match[1] });
       }
     }
-    return null;
-  }
-
-  convert(text: string): Result {
-    const res = this.getRule('single', text);
-    if (res == null) return null;
-
-    return res.rule.fn(res.text);
-  }
-
-  convertAll(code: string, ingores: string[], type: Type): string {
-    if (!code) return code;
-
-    const rule = this.rules.find(w => w.type === type);
-
-    return code.replace(rule.all, (word: string) => {
-      if (ingores.includes(word)) return word;
-      const res = rule.fn(word);
-      if (res) return res.value;
-      return word;
-    });
+    return result;
   }
 }
