@@ -1,8 +1,8 @@
 {
   "name": "cssrem",
-  "displayName": "cssrem（px转rem, rpx 小）",
-  "description": "Converts between px and rem units in VSCode",
-  "version": "1.0.0",
+  "displayName": "px to rem & rpx",
+  "description": "Converts between px and rem & rpx units in VSCode",
+  "version": "2.0.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -46,7 +46,7 @@
     "onLanguage:tpl",
     "onLanguage:wxss"
   ],
-  "main": "./out/src/extension",
+  "main": "./out/extension",
   "contributes": {
     "commands": [
       {
@@ -73,17 +73,17 @@
         "cssrem.rootFontSize": {
           "type": "number",
           "default": 16,
-          "description": "root font-size (unit: px), default: 16"
+          "description": "%cssrem.rootFontSize%"
         },
         "cssrem.fixedDigits": {
           "type": "number",
           "default": 6,
-          "description": "Px to rem decimal point maximum length, default: 6"
+          "description": "%cssrem.fixedDigits%"
         },
         "cssrem.autoRemovePrefixZero": {
           "type": "boolean",
           "default": true,
-          "description": "Automatically remove prefix 0, default: true"
+          "description": "%cssrem.autoRemovePrefixZero%"
         },
         "cssrem.ingoresViaCommand": {
           "type": "array",
@@ -91,33 +91,44 @@
             "type": "string"
           },
           "default": [],
-          "description": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: []"
+          "description": "%cssrem.ingoresViaCommand%"
         },
         "cssrem.wxssScreenWidth": {
           "type": "number",
           "default": 750,
-          "description": "规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)"
+          "description": "%cssrem.wxssScreenWidth%"
         },
         "cssrem.wxssDeviceWidth": {
           "type": "number",
           "default": 375,
-          "description": "设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准，默认：`375`"
+          "description": "%cssrem.wxssDeviceWidth%"
         }
       }
     }
   },
   "scripts": {
-    "prod": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "package": "vsce package",
-    "publish": "run-s prod package",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "release": "gulp package",
+    "build": "gulp build",
+    "watch": "gulp watch"
   },
   "devDependencies": {
     "@types/node": "^10.12.2",
     "typescript": "^3.1.6",
     "vscode": "^1.1.21",
     "mocha": "^2.3.3",
-    "@types/mocha": "^2.2.32"
+    "@types/mocha": "^2.2.32",
+    "vsce": "^1.81.1",
+    "gulp": "^4.0.2",
+    "gulp-filter": "^5.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-typescript": "^5.0.1",
+    "run-sequence": "^2.2.1",
+    "del": "^4.1.1",
+    "event-stream": "^4.0.1",
+    "vscode-nls-dev": "^3.2.6"
+  },
+  "dependencies": {
+    "vscode-nls": "^5.0.0"
   }
 }

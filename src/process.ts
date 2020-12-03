@@ -1,4 +1,7 @@
+import * as nls from 'vscode-nls';
 import { Config, Result, Rule, RuleOPType, Type } from './interface';
+
+const localize = nls.config({ messageFormat: nls.MessageFormat.both })();
 
 export class CssRemProcess {
   private rules: Rule[] = [
@@ -19,9 +22,12 @@ export class CssRemProcess {
           rem: value,
           value,
           label,
-          documentation: this.genDocument(
-            `将 {0}px 转换为 {1} （当前基准大小 ${this.cog.rootFontSize}px，可参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改）`,
-            [px, value],
+          documentation: localize(
+            `pxToRem.documentation`,
+            `Convert {0}px to {1} (the current benchmark font-size is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify`,
+            px,
+            value,
+            this.cog.rootFontSize,
           ),
         };
       },
@@ -43,9 +49,12 @@ export class CssRemProcess {
           rem: value,
           value,
           label,
-          documentation: this.genDocument(
-            `将 {0}rem 转换为 {1} （当前基准大小 ${this.cog.rootFontSize}px，可参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改）`,
-            [px, value],
+          documentation: localize(
+            `remToPx.documentation`,
+            `Convert {0}rem to {1} (the current benchmark font-size is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify`,
+            px,
+            value,
+            this.cog.rootFontSize,
           ),
         };
       },
@@ -67,9 +76,12 @@ export class CssRemProcess {
           rpx: value,
           value,
           label,
-          documentation: this.genDocument(
-            `**WXSS小程序样式** 将 {0}px 转换为 {1} （当前设备宽度 ${this.cog.wxssDeviceWidth}px，可参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改）`,
-            [px, value],
+          documentation: localize(
+            `pxToRpx.documentation`,
+            `**WXSS miniprogram style** Convert {0}px to {1} (the current device width is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify)`,
+            px,
+            value,
+            this.cog.wxssDeviceWidth,
           ),
         };
       },
@@ -91,9 +103,12 @@ export class CssRemProcess {
           rpx: value,
           value,
           label,
-          documentation: this.genDocument(
-            `**WXSS小程序样式** 将 {0}rpx 转换为 {1} （当前设备宽度 ${this.cog.wxssDeviceWidth}px，可参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改）`,
-            [px, value],
+          documentation: localize(
+            `rpxToPx.documentation`,
+            `**WXSS miniprogram style** Convert {0}rpx to {1} (the current device width is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify)`,
+            px,
+            value,
+            this.cog.wxssDeviceWidth,
           ),
         };
       },
@@ -136,21 +151,6 @@ export class CssRemProcess {
       }
     }
     return +val;
-  }
-
-  private genDocument(message: string, args: any[]): string {
-    // https://github.com/microsoft/vscode-nls/blob/master/src/common/common.ts
-    return message.replace(/\{(\d+)\}/g, (match, rest) => {
-      const index = rest[0];
-      const arg = args[index];
-      let replacement = match;
-      if (typeof arg === 'string') {
-        replacement = arg;
-      } else if (typeof arg === 'number' || typeof arg === 'boolean' || arg === void 0 || arg === null) {
-        replacement = String(arg);
-      }
-      return replacement;
-    });
   }
 
   private getRule(type: RuleOPType, text: string): Array<{ rule: Rule; text: string }> {

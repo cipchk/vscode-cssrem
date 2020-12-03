@@ -1,0 +1,6 @@
+{
+  "pxToRem.documentation": "将 {0}px 转换为 {1} (当前基准字号为 {2}px, 参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改",
+  "remToPx.documentation": "将 {0}rem 转换为 {1} (当前基准字号为 {2}px, 参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改",
+  "pxToRpx.documentation": "**WXSS小程序样式** 将 {0}px 转换为 {1} (当前设备宽度 {2}px, 参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改",
+  "rpxToPx.documentation": "**WXSS小程序样式** 将 {0}rpx 转换为 {1} (当前设备宽度 {2}px, 参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改"
+}
