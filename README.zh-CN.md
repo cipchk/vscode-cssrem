@@ -32,11 +32,13 @@ html vue css less scss sass stylus tpl（php smarty3）
 
 其次，也可以配置全局，点击 VS Code 的 `文件 > 首选项 > 设置`，打开设置面板：
 
-名称 | 描述 | 默认值
----- | --- | -------
-`cssrem.rootFontSize` | 基准font-size（单位：`px`） | `16`
-`cssrem.fixedDigits` | `px` 转 `rem` 小数点最大长度 | `6`
-`cssrem.autoRemovePrefixZero` | 自动移除0开头的前缀 | `true`
-`cssrem.ingoresViaCommand` | 当使用命令行批量转换时，允许忽略部分 `px` 值不转换成 `rem`（单位：`string[]`），例如：`[ "1px", "0.5px" ]` | `[]`
+| 名称 | 描述 | 默认值 |
+|----|----|-----|
+| `cssrem.rootFontSize` | 基准font-size（单位：`px`） | `16` |
+| `cssrem.fixedDigits` | `px` 转 `rem` 小数点最大长度 | `6` |
+| `cssrem.autoRemovePrefixZero` | 自动移除0开头的前缀 | `true` |
+| `cssrem.ingoresViaCommand` | 当使用命令行批量转换时，允许忽略部分 `px` 值不转换成 `rem`（单位：`string[]`），例如：`[ "1px", "0.5px" ]` | `[]` |
+| `cssrem.wxssScreenWidth` | **WXSS小程序样式** 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html) | `750` |
+| `cssrem.wxssDeviceWidth` | **WXSS小程序样式** 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准 | `375` |
 
 **注意：** 需要重新启动 VSCode 才会生效

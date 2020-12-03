@@ -13,7 +13,19 @@ export class CssRemProcess {
         let resultValue = this.cleanZero((px / this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
         const value = resultValue + 'rem';
         const label = `${px}px -> ${value}`;
-        return { text, px: `${px}px`, pxValue: px, remValue: resultValue, rem: value, value, label };
+        return {
+          text,
+          px: `${px}px`,
+          pxValue: px,
+          remValue: resultValue,
+          rem: value,
+          value,
+          label,
+          documentation: this.genDocument(
+            `将 {0}px 转换为 {1} （当前基准大小 ${this.cog.rootFontSize}px，可参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改）`,
+            [px, value],
+          ),
+        };
       },
     },
     {
@@ -25,7 +37,67 @@ export class CssRemProcess {
         let resultValue = this.cleanZero((px * this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
         const value = resultValue + 'px';
         const label = `${px}rem -> ${value}`;
-        return { text, px: `${px}px`, pxValue: px, remValue: resultValue, rem: value, value, label };
+        return {
+          text,
+          px: `${px}px`,
+          pxValue: px,
+          remValue: resultValue,
+          rem: value,
+          value,
+          label,
+          documentation: this.genDocument(
+            `将 {0}rem 转换为 {1} （当前基准大小 ${this.cog.rootFontSize}px，可参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改）`,
+            [px, value],
+          ),
+        };
+      },
+    },
+    {
+      type: 'pxToRpx',
+      single: /([-]?[\d.]+)p(x)?$/,
+      all: /([-]?[\d.]+)px/g,
+      fn: text => {
+        const px = parseFloat(text);
+        let resultValue = this.cleanZero((px * (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
+        const value = resultValue + 'rpx';
+        const label = `${px}px -> ${value}`;
+        return {
+          text,
+          px: `${px}px`,
+          pxValue: px,
+          rpxValue: resultValue,
+          rpx: value,
+          value,
+          label,
+          documentation: this.genDocument(
+            `**WXSS小程序样式** 将 {0}px 转换为 {1} （当前设备宽度 ${this.cog.wxssDeviceWidth}px，可参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改）`,
+            [px, value],
+          ),
+        };
+      },
+    },
+    {
+      type: 'rpxToPx',
+      single: /([-]?[\d.]+)r(p|px)?$/,
+      all: /([-]?[\d.]+)rpx/g,
+      fn: text => {
+        const px = parseFloat(text);
+        let resultValue = this.cleanZero((px / (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
+        const value = resultValue + 'px';
+        const label = `${px}rpx -> ${value}px`;
+        return {
+          text,
+          px: `${px}px`,
+          pxValue: px,
+          rpxValue: resultValue,
+          rpx: value,
+          value,
+          label,
+          documentation: this.genDocument(
+            `**WXSS小程序样式** 将 {0}rpx 转换为 {1} （当前设备宽度 ${this.cog.wxssDeviceWidth}px，可参考[配置文档](https://github.com/cipchk/vscode-cssrem#configuration)修改）`,
+            [px, value],
+          ),
+        };
       },
     },
   ];
@@ -39,22 +111,37 @@ export class CssRemProcess {
     return +val;
   }
 
-  private getRule(type: RuleOPType, text: string): { rule: Rule; text: string } | null {
-    console.log(text);
+  private genDocument(message: string, args: any[]): string {
+    // https://github.com/microsoft/vscode-nls/blob/master/src/common/common.ts
+    return message.replace(/\{(\d+)\}/g, (match, rest) => {
+      let index = rest[0];
+      let arg = args[index];
+      let replacement = match;
+      if (typeof arg === 'string') {
+        replacement = arg;
+      } else if (typeof arg === 'number' || typeof arg === 'boolean' || arg === void 0 || arg === null) {
+        replacement = String(arg);
+      }
+      return replacement;
+    });
+  }
+
+  private getRule(type: RuleOPType, text: string): Array<{ rule: Rule; text: string }> {
+    const result: Array<{ rule: Rule; text: string }> = [];
     for (const rule of this.rules) {
       const match = text.match(rule[type]);
       if (match) {
-        return { rule, text: match[1] };
+        result.push({ rule, text: match[1] });
       }
     }
-    return null;
+    return result;
   }
 
-  convert(text: string): Result {
+  convert(text: string): Result[] {
     const res = this.getRule('single', text);
-    if (res == null) return null;
+    if (res.length === 0) return null;
 
-    return res.rule.fn(res.text);
+    return res.map(i => i.rule.fn(i.text));
   }
 
   convertAll(code: string, ingores: string[], type: Type): string {

@@ -8,7 +8,7 @@
   "license": "MIT",
   "licenseUrl": "LICENSE",
   "engines": {
-    "vscode": "^1.12.0"
+    "vscode": "^1.30.x"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,10 @@
     "px to rem",
     "px2rem",
     "rem to px",
-    "css rem"
+    "css rem",
+    "wxss",
+    "px to rpx",
+    "rpx to px"
   ],
   "categories": [
     "Formatters",
@@ -40,7 +43,8 @@
     "onLanguage:scss",
     "onLanguage:sass",
     "onLanguage:stylus",
-    "onLanguage:tpl"
+    "onLanguage:tpl",
+    "onLanguage:wxss"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -52,6 +56,14 @@
       {
         "command": "extension.cssrem.rem-to-px",
         "title": "CSSRem: Rem To Px"
+      },
+      {
+        "command": "extension.cssrem.px-to-rpx",
+        "title": "CSSRem: Px To Rpx (小程序WXSS)"
+      },
+      {
+        "command": "extension.cssrem.rpx-to-px",
+        "title": "CSSRem: Rpx To Px (小程序WXSS)"
       }
     ],
     "configuration": {
@@ -80,6 +92,16 @@
           },
           "default": [],
           "description": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: []"
+        },
+        "cssrem.wxssScreenWidth": {
+          "type": "number",
+          "default": 750,
+          "description": "规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)"
+        },
+        "cssrem.wxssDeviceWidth": {
+          "type": "number",
+          "default": 375,
+          "description": "设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准，默认：`375`"
         }
       }
     }

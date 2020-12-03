@@ -7,6 +7,14 @@ export interface Config {
   autoRemovePrefixZero: boolean;
   /** Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: [] */
   ingoresViaCommand: string[];
+  /**
+   * 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)
+   */
+  wxssScreenWidth: number;
+  /**
+   * 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准，默认：`375`
+   */
+  wxssDeviceWidth: number;
 }
 
 export interface Rule {
@@ -16,16 +24,19 @@ export interface Rule {
   fn: (text: string) => Result;
 }
 
-export type Type = 'pxToRem' | 'remToPx';
+export type Type = 'pxToRem' | 'remToPx' | 'pxToRpx' | 'rpxToPx';
 
 export type RuleOPType = 'single' | 'all';
 
 export interface Result {
   text: string;
-  px: string;
-  pxValue: number | string;
-  rem: string;
-  remValue: number | string;
+  px?: string;
+  pxValue?: number | string;
+  rem?: string;
+  remValue?: number | string;
+  rpx?: string;
+  rpxValue?: number | string;
   label: string;
   value: string;
+  documentation?: string;
 }

@@ -41,10 +41,9 @@ export function activate(context: ExtensionContext) {
 
   process = new CssRemProcess(cog);
 
-  let provider = new CssRemProvider(process);
-  const LANS = ['html', 'vue', 'css', 'less', 'scss', 'sass', 'stylus'];
+  const LANS = ['html', 'vue', 'css', 'less', 'scss', 'sass', 'stylus', 'wxss'];
   for (let lan of LANS) {
-    let providerDisposable = languages.registerCompletionItemProvider(lan, provider);
+    let providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(lan, process));
     context.subscriptions.push(providerDisposable);
   }
 
@@ -55,6 +54,12 @@ export function activate(context: ExtensionContext) {
     }),
     commands.registerTextEditorCommand('extension.cssrem.rem-to-px', textEditor => {
       modifyDocument(textEditor, ingoresViaCommand, 'remToPx');
+    }),
+    commands.registerTextEditorCommand('extension.cssrem.px-to-rpx', textEditor => {
+      modifyDocument(textEditor, ingoresViaCommand, 'pxToRpx');
+    }),
+    commands.registerTextEditorCommand('extension.cssrem.rpx-to-px', textEditor => {
+      modifyDocument(textEditor, ingoresViaCommand, 'rpxToPx');
     }),
   );
 }
