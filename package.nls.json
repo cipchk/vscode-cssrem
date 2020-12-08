@@ -3,6 +3,11 @@
   "cssrem.fixedDigits": "Px to rem decimal point maximum length, default: 6",
   "cssrem.autoRemovePrefixZero": "Automatically remove prefix 0, default: true",
   "cssrem.ingoresViaCommand": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: []",
+  "cssrem.addMark": "Whether to enabled mark, default: false",
+  "cssrem.hover": "Whether to enable display conversion data on hover, default: true",
+  "cssrem.hover.disabled": "Disabled",
+  "cssrem.hover.always": "Anything, whether converted by the plug-in or not, will be displayed",
+  "cssrem.hover.onlyMark": "Only valid when `cssrem.addMark` is `true`",
   "cssrem.wxssScreenWidth": "规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)",
   "cssrem.wxssDeviceWidth": "设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准，默认：`375`"
 }

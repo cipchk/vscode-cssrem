@@ -40,6 +40,8 @@ Secondly, you can also configure the global. Open your user and workspace settin
 | `cssrem.fixedDigits` | Keeping decimal point maximum length | `6` |
 | `cssrem.autoRemovePrefixZero` | Automatically remove prefix 0 | `true` |
 | `cssrem.ingoresViaCommand` | Ignores `px` to `rem` when trigger command (Unit: `string[]`), can be set `[ "1px", "0.5px" ]` | `[]` |
+| `cssrem.addMark` | Whether to enabled mark | `false` |
+| `cssrem.hover` | Whether to enable display conversion data on hover, `disabled`: Disabled, `always` Anything, `onlyMark`: Only valid when `cssrem.addMark` is `true` | `onlyMark` |
 | `cssrem.wxssScreenWidth` | **WXSS小程序样式** 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html) | `750` |
 | `cssrem.wxssDeviceWidth` | **WXSS小程序样式** 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准 | `375` |
 

@@ -1,9 +1,10 @@
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { commands, ExtensionContext, languages, Position, Range, Selection, TextEditor, workspace } from 'vscode';
+import CssRemProvider from './completion';
+import CssRemHoverProvider from './hover';
 import { Config, Type } from './interface';
 import { CssRemProcess } from './process';
-import { CssRemProvider } from './provider';
 
 let cog: Config = null;
 let process: CssRemProcess;
@@ -47,8 +48,12 @@ export function activate(context: ExtensionContext) {
 
   const LANS = ['html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'wxss'];
   for (const lan of LANS) {
-    const providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(lan, process));
+    const providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(cog, lan, process));
     context.subscriptions.push(providerDisposable);
+  }
+  if (cog.hover !== 'disabled') {
+    const hoverProvider = new CssRemHoverProvider(cog);
+    context.subscriptions.push(languages.registerHoverProvider(LANS, hoverProvider));
   }
 
   const ingoresViaCommand = ((cog.ingoresViaCommand || []) as string[]).filter(w => !!w).map(v => (v.endsWith('px') ? v : `${v}px`));

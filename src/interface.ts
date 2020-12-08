@@ -8,6 +8,14 @@ export interface Config {
   /** Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: [] */
   ingoresViaCommand: string[];
   /**
+   * Whether to enabled mark, default: false
+   */
+  addMark: boolean;
+  /**
+   * Whether to enable display conversion data on hover, Default: onlyMark
+   */
+  hover: 'disabled' | 'always' | 'onlyMark';
+  /**
    * 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)
    */
   wxssScreenWidth: number;
@@ -21,14 +29,17 @@ export interface Rule {
   type: Type;
   single: RegExp;
   all: RegExp;
-  fn: (text: string) => Result;
+  fn: (cog: Config, text: string) => ConvertResult;
+  hover?: RegExp;
+  hoverFn?: (cog: Config, text: string) => HoverResult;
 }
 
 export type Type = 'pxToRem' | 'remToPx' | 'pxToRpx' | 'rpxToPx';
 
 export type RuleOPType = 'single' | 'all';
 
-export interface Result {
+export interface ConvertResult {
+  type: string;
   text: string;
   px?: string;
   pxValue?: number | string;
@@ -39,4 +50,9 @@ export interface Result {
   label: string;
   value: string;
   documentation?: string;
+}
+
+export interface HoverResult {
+  type: string;
+  documentation: string;
 }

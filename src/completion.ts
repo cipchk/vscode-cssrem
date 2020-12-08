@@ -1,8 +1,9 @@
 import { CompletionItem, CompletionItemKind, CompletionItemProvider, MarkdownString, Position, Range, TextDocument } from 'vscode';
+import { Config } from './interface';
 import { CssRemProcess } from './process';
 
-export class CssRemProvider implements CompletionItemProvider {
-  constructor(private lan: string, private process: CssRemProcess) {}
+export default class implements CompletionItemProvider {
+  constructor(private cog: Config, private lan: string, private process: CssRemProcess) {}
 
   provideCompletionItems(document: TextDocument, position: Position): Thenable<CompletionItem[]> {
     return new Promise(resolve => {
@@ -18,7 +19,7 @@ export class CssRemProvider implements CompletionItemProvider {
           if (i.documentation) {
             item.documentation = new MarkdownString(i.documentation);
           }
-          item.insertText = i.value;
+          item.insertText = i.value + (this.cog.addMark ? ` /* ${i.type} */` : ``);
           return item;
         }),
       );
