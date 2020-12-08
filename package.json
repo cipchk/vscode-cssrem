@@ -2,11 +2,17 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx (cssrem)",
   "description": "Converts between px and rem & rpx units in VSCode",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
   "licenseUrl": "LICENSE",
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "release": "gulp package",
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
   "engines": {
     "vscode": "^1.30.x"
   },
@@ -39,6 +45,7 @@
     "onLanguage:html",
     "onLanguage:vue",
     "onLanguage:css",
+    "onLanguage:postcss",
     "onLanguage:less",
     "onLanguage:scss",
     "onLanguage:sass",
@@ -105,12 +112,6 @@
         }
       }
     }
-  },
-  "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "release": "gulp package",
-    "build": "gulp build",
-    "watch": "gulp watch"
   },
   "devDependencies": {
     "@types/node": "^10.12.2",
