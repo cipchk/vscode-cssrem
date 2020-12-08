@@ -11,8 +11,8 @@ export class CssRemProcess {
       single: /([-]?[\d.]+)p(x)?$/,
       fn: text => {
         const px = parseFloat(text);
-        const resultValue = this.cleanZero((px / this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
-        const value = resultValue + 'rem';
+        const resultValue = +(px / this.cog.rootFontSize).toFixed(this.cog.fixedDigits);
+        const value = this.cleanZero(resultValue) + 'rem';
         const label = `${px}px -> ${value}`;
         return {
           text,
@@ -38,8 +38,8 @@ export class CssRemProcess {
       all: /([-]?[\d.]+)rem/g,
       fn: text => {
         const px = parseFloat(text);
-        const resultValue = this.cleanZero((px * this.cog.rootFontSize).toFixed(this.cog.fixedDigits));
-        const value = resultValue + 'px';
+        const resultValue = +(px * this.cog.rootFontSize).toFixed(this.cog.fixedDigits);
+        const value = this.cleanZero(resultValue) + 'px';
         const label = `${px}rem -> ${value}`;
         return {
           text,
@@ -65,8 +65,8 @@ export class CssRemProcess {
       all: /([-]?[\d.]+)px/g,
       fn: text => {
         const px = parseFloat(text);
-        const resultValue = this.cleanZero((px * (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
-        const value = resultValue + 'rpx';
+        const resultValue = +(px * (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits);
+        const value = this.cleanZero(resultValue) + 'rpx';
         const label = `${px}px -> ${value}`;
         return {
           text,
@@ -92,8 +92,8 @@ export class CssRemProcess {
       all: /([-]?[\d.]+)rpx/g,
       fn: text => {
         const px = parseFloat(text);
-        const resultValue = this.cleanZero((px / (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits));
-        const value = resultValue + 'px';
+        const resultValue = +(px / (this.cog.wxssScreenWidth / this.cog.wxssDeviceWidth)).toFixed(this.cog.fixedDigits);
+        const value = this.cleanZero(resultValue) + 'px';
         const label = `${px}rpx -> ${value}px`;
         return {
           text,
@@ -144,13 +144,13 @@ export class CssRemProcess {
     });
   }
 
-  private cleanZero(val: string): number {
+  private cleanZero(val: number): string {
     if (this.cog.autoRemovePrefixZero) {
       if (val.toString().startsWith('0.')) {
-        val = val.toString().substring(1);
+        return val.toString().substring(1);
       }
     }
-    return +val;
+    return val + '';
   }
 
   private getRule(type: RuleOPType, text: string): Array<{ rule: Rule; text: string }> {

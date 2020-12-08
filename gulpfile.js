@@ -88,5 +88,5 @@ gulp.task('package', gulp.series(buildTask, vscePackageTask));
 
 gulp.task('watch', () => {
   buildTask();
-  gulp.watch(['*.ts', './i18n/**/*.json'], buildTask);
+  gulp.watch(['src/*.ts', './i18n/**/*.json'], buildTask);
 });
