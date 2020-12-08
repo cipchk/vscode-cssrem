@@ -45,7 +45,7 @@ export function activate(context: ExtensionContext) {
 
   process = new CssRemProcess(cog);
 
-  const LANS = ['html', 'vue', 'css', 'less', 'scss', 'sass', 'stylus', 'wxss'];
+  const LANS = ['html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'wxss'];
   for (const lan of LANS) {
     const providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(lan, process));
     context.subscriptions.push(providerDisposable);
