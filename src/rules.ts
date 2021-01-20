@@ -1,11 +1,12 @@
 import * as nls from 'vscode-nls';
-import { Config, Rule } from './interface';
+import { cog } from './config';
+import { Rule } from './interface';
 
 const localize = nls.config({ messageFormat: nls.MessageFormat.both })();
 
 export const RULES: Rule[] = [];
 
-function cleanZero(cog: Config, val: number): string {
+function cleanZero(val: number): string {
   if (cog.autoRemovePrefixZero) {
     if (val.toString().startsWith('0.')) {
       return val.toString().substring(1);
@@ -14,17 +15,17 @@ function cleanZero(cog: Config, val: number): string {
   return val + '';
 }
 
-export function resetRules(c: Config): void {
+export function resetRules(): void {
   RULES.length = 0;
   RULES.push(
     {
       all: /([-]?[\d.]+)px/g,
       type: 'pxToRem',
       single: /([-]?[\d.]+)p(x)?$/,
-      fn: (cog, text) => {
+      fn: text => {
         const px = parseFloat(text);
         const resultValue = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
-        const value = cleanZero(cog, resultValue) + 'rem';
+        const value = cleanZero(resultValue) + 'rem';
         const label = `${px}px -> ${value}`;
         return {
           type: 'pxToRem',
@@ -45,7 +46,7 @@ export function resetRules(c: Config): void {
         };
       },
       hover: /([-]?[\d.]+)px/g,
-      hoverFn: (cog, pxText) => {
+      hoverFn: pxText => {
         const val = +(parseFloat(pxText) / cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
           type: 'remToPx',
@@ -62,10 +63,10 @@ export function resetRules(c: Config): void {
       type: 'remToPx',
       single: /([-]?[\d.]+)r(e|em)?$/,
       all: /([-]?[\d.]+)rem/g,
-      fn: (cog, text) => {
+      fn: text => {
         const px = parseFloat(text);
         const resultValue = +(px * cog.rootFontSize).toFixed(cog.fixedDigits);
-        const value = cleanZero(cog, resultValue) + 'px';
+        const value = cleanZero(resultValue) + 'px';
         const label = `${px}rem -> ${value}`;
         return {
           type: 'remToPx',
@@ -86,7 +87,7 @@ export function resetRules(c: Config): void {
         };
       },
       hover: /([-]?[\d.]+)rem/g,
-      hoverFn: (cog, remText) => {
+      hoverFn: remText => {
         const val = +(parseFloat(remText) * cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
           type: 'pxToRem',
@@ -100,16 +101,16 @@ export function resetRules(c: Config): void {
       },
     },
   );
-  if (c.wxss) {
+  if (cog.wxss) {
     RULES.push(
       {
         type: 'pxToRpx',
         single: /([-]?[\d.]+)p(x)?$/,
         all: /([-]?[\d.]+)px/g,
-        fn: (cog, text) => {
+        fn: text => {
           const px = parseFloat(text);
           const resultValue = +(px * (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
-          const value = cleanZero(cog, resultValue) + 'rpx';
+          const value = cleanZero(resultValue) + 'rpx';
           const label = `${px}px -> ${value}`;
           return {
             type: 'pxToRpx',
@@ -135,10 +136,10 @@ export function resetRules(c: Config): void {
         type: 'rpxToPx',
         single: /([-]?[\d.]+)r(p|px)?$/,
         all: /([-]?[\d.]+)rpx/g,
-        fn: (cog, text) => {
+        fn: text => {
           const px = parseFloat(text);
           const resultValue = +(px / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
-          const value = cleanZero(cog, resultValue) + 'px';
+          const value = cleanZero(resultValue) + 'px';
           const label = `${px}rpx -> ${value}px`;
           return {
             type: 'rpxToPx',
@@ -160,7 +161,7 @@ export function resetRules(c: Config): void {
           };
         },
         hover: /([-]?[\d.]+)rpx/g,
-        hoverFn: (cog, rpxText) => {
+        hoverFn: rpxText => {
           const val = +(parseFloat(rpxText) / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
           return {
             type: 'rpxToPx',

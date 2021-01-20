@@ -1,40 +1,11 @@
-import { existsSync, readFileSync } from 'fs';
-import { join } from 'path';
-import { commands, ExtensionContext, languages, Position, Range, Selection, TextEditor, window, workspace } from 'vscode';
+import { commands, ExtensionContext, languages, Position, Range, Selection, TextEditor, workspace } from 'vscode';
 import CssRemProvider from './completion';
+import { cog, loadConfig } from './config';
 import CssRemHoverProvider from './hover';
-import { Config, Type } from './interface';
+import { Type } from './interface';
 import { CssRemProcess } from './process';
-import { resetRules } from './rules';
 
-let cog: Config = null;
 let process: CssRemProcess;
-
-function loadConfigViaFile(): void {
-  if (workspace.workspaceFolders.length === 0) {
-    return;
-  }
-
-  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.path, '.cssrem');
-  if (!existsSync(cssremConfigPath)) {
-    return;
-  }
-  try {
-    const res = JSON.parse(readFileSync(cssremConfigPath).toString('utf-8'));
-    cog = {
-      ...cog,
-      ...res,
-    };
-  } catch {
-    //
-  }
-}
-
-function loadConfig(): void {
-  cog = workspace.getConfiguration('cssrem') as any;
-  loadConfigViaFile();
-  resetRules(cog);
-}
 
 function modifyDocument(textEditor: TextEditor, ingoresViaCommand: string[], type: Type): void {
   const doc = textEditor.document;
@@ -55,18 +26,18 @@ export function activate(context: ExtensionContext) {
   loadConfig();
   workspace.onDidChangeConfiguration(() => loadConfig());
 
-  process = new CssRemProcess(cog);
+  process = new CssRemProcess();
 
   const LANS = ['html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus'];
   if (cog.wxss) {
     LANS.push('wxss');
   }
   for (const lan of LANS) {
-    const providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(cog, lan, process));
+    const providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(lan, process));
     context.subscriptions.push(providerDisposable);
   }
   if (cog.hover !== 'disabled') {
-    const hoverProvider = new CssRemHoverProvider(cog);
+    const hoverProvider = new CssRemHoverProvider();
     context.subscriptions.push(languages.registerHoverProvider(LANS, hoverProvider));
   }
 

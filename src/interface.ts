@@ -33,9 +33,9 @@ export interface Rule {
   type: Type;
   single: RegExp;
   all: RegExp;
-  fn: (cog: Config, text: string) => ConvertResult;
+  fn: (text: string) => ConvertResult;
   hover?: RegExp;
-  hoverFn?: (cog: Config, text: string) => HoverResult;
+  hoverFn?: (text: string) => HoverResult;
 }
 
 export type Type = 'pxToRem' | 'remToPx' | 'pxToRpx' | 'rpxToPx';
