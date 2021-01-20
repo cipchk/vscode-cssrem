@@ -32,8 +32,8 @@ export class CssRemProcess {
     });
   }
 
-  private getRule(type: RuleOPType, text: string): Array<{ rule: Rule; text: string }> {
-    const result: Array<{ rule: Rule; text: string }> = [];
+  private getRule(type: RuleOPType, text: string): { rule: Rule; text: string }[] {
+    const result: { rule: Rule; text: string }[] = [];
     for (const rule of RULES) {
       const match = text.match(rule[type]);
       if (match) {

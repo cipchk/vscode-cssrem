@@ -1,17 +1,21 @@
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { commands, ExtensionContext, languages, Position, Range, Selection, TextEditor, workspace } from 'vscode';
+import { commands, ExtensionContext, languages, Position, Range, Selection, TextEditor, window, workspace } from 'vscode';
 import CssRemProvider from './completion';
 import CssRemHoverProvider from './hover';
 import { Config, Type } from './interface';
 import { CssRemProcess } from './process';
+import { resetRules } from './rules';
 
 let cog: Config = null;
 let process: CssRemProcess;
 
-function loadConfig(): void {
-  cog = workspace.getConfiguration('cssrem') as any;
-  const cssremConfigPath = join(workspace.rootPath, '.cssrem');
+function loadConfigViaFile(): void {
+  if (workspace.workspaceFolders.length === 0) {
+    return;
+  }
+
+  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.path, '.cssrem');
   if (!existsSync(cssremConfigPath)) {
     return;
   }
@@ -24,6 +28,12 @@ function loadConfig(): void {
   } catch {
     //
   }
+}
+
+function loadConfig(): void {
+  cog = workspace.getConfiguration('cssrem') as any;
+  loadConfigViaFile();
+  resetRules(cog);
 }
 
 function modifyDocument(textEditor: TextEditor, ingoresViaCommand: string[], type: Type): void {
@@ -43,10 +53,14 @@ function modifyDocument(textEditor: TextEditor, ingoresViaCommand: string[], typ
 
 export function activate(context: ExtensionContext) {
   loadConfig();
+  workspace.onDidChangeConfiguration(() => loadConfig());
 
   process = new CssRemProcess(cog);
 
-  const LANS = ['html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'wxss'];
+  const LANS = ['html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus'];
+  if (cog.wxss) {
+    LANS.push('wxss');
+  }
   for (const lan of LANS) {
     const providerDisposable = languages.registerCompletionItemProvider(lan, new CssRemProvider(cog, lan, process));
     context.subscriptions.push(providerDisposable);
@@ -64,13 +78,17 @@ export function activate(context: ExtensionContext) {
     commands.registerTextEditorCommand('extension.cssrem.rem-to-px', textEditor => {
       modifyDocument(textEditor, ingoresViaCommand, 'remToPx');
     }),
-    commands.registerTextEditorCommand('extension.cssrem.px-to-rpx', textEditor => {
-      modifyDocument(textEditor, ingoresViaCommand, 'pxToRpx');
-    }),
-    commands.registerTextEditorCommand('extension.cssrem.rpx-to-px', textEditor => {
-      modifyDocument(textEditor, ingoresViaCommand, 'rpxToPx');
-    }),
   );
+  if (cog.wxss) {
+    context.subscriptions.push(
+      commands.registerTextEditorCommand('extension.cssrem.px-to-rpx', textEditor => {
+        modifyDocument(textEditor, ingoresViaCommand, 'pxToRpx');
+      }),
+      commands.registerTextEditorCommand('extension.cssrem.rpx-to-px', textEditor => {
+        modifyDocument(textEditor, ingoresViaCommand, 'rpxToPx');
+      }),
+    );
+  }
 }
 
 // this method is called when your extension is deactivated

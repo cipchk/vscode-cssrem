@@ -16,6 +16,10 @@ export interface Config {
    */
   hover: 'disabled' | 'always' | 'onlyMark';
   /**
+   * Whether to enable WXSS support
+   */
+  wxss: boolean;
+  /**
    * 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)
    */
   wxssScreenWidth: number;

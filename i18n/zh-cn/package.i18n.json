@@ -8,6 +8,7 @@
   "cssrem.hover.disabled": "禁用",
   "cssrem.hover.always": "任何，不管是否由插件转换而来的都显示",
   "cssrem.hover.onlyMark": "只对已经 `cssrem.addMark` 为 `true` 生效",
+  "cssrem.wxss": "是否启用WXSS支持",
   "cssrem.wxssScreenWidth": "规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)",
   "cssrem.wxssDeviceWidth": "设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准，默认：`375`"
 }

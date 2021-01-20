@@ -120,6 +120,11 @@
           ],
           "description": "%cssrem.hover%"
         },
+        "cssrem.wxss": {
+          "type": "boolean",
+          "default": false,
+          "description": "%cssrem.wxss%"
+        },
         "cssrem.wxssScreenWidth": {
           "type": "number",
           "default": 750,
