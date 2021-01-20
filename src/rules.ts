@@ -19,8 +19,8 @@ export function resetRules(): void {
   RULES.length = 0;
   RULES.push(
     {
-      all: /([-]?[\d.]+)px/g,
       type: 'pxToRem',
+      all: /([-]?[\d.]+)px/g,
       single: /([-]?[\d.]+)p(x)?$/,
       fn: text => {
         const px = parseFloat(text);
@@ -45,7 +45,7 @@ export function resetRules(): void {
           ),
         };
       },
-      hover: /([-]?[\d.]+)px/g,
+      hover: /([-]?[\d.]+)px/,
       hoverFn: pxText => {
         const val = +(parseFloat(pxText) / cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
@@ -61,8 +61,8 @@ export function resetRules(): void {
     },
     {
       type: 'remToPx',
-      single: /([-]?[\d.]+)r(e|em)?$/,
       all: /([-]?[\d.]+)rem/g,
+      single: /([-]?[\d.]+)r(e|em)?$/,
       fn: text => {
         const px = parseFloat(text);
         const resultValue = +(px * cog.rootFontSize).toFixed(cog.fixedDigits);
@@ -86,7 +86,7 @@ export function resetRules(): void {
           ),
         };
       },
-      hover: /([-]?[\d.]+)rem/g,
+      hover: /([-]?[\d.]+)rem/,
       hoverFn: remText => {
         const val = +(parseFloat(remText) * cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
@@ -160,7 +160,7 @@ export function resetRules(): void {
             ),
           };
         },
-        hover: /([-]?[\d.]+)rpx/g,
+        hover: /([-]?[\d.]+)rpx/,
         hoverFn: rpxText => {
           const val = +(parseFloat(rpxText) / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
           return {

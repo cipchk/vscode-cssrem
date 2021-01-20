@@ -1,14 +1,18 @@
 # cssrem
 
-一个 `px` 与 `rem` 单位互转的 VSCode 插件
+一个 `px` 与 `rem` 单位互转的 VSCode 插件，且支持WXSS微信小程序。
 
 ![](demo.gif)
 
-# 如何安装
+# 特性
 
-```bash
-ext install cssrem
-```
+- 支持智能感知
+  - `px` -> `rem`
+  - `rem` -> `px`
+  - `px` -> `rpx` (微信小程序)
+  - `rpx` -> `px` (微信小程序)
+- 支持鼠标悬停显示转化过程
+- 支持直接打上标记
 
 # 如何使用
 
@@ -43,5 +47,3 @@ html vue css less scss sass stylus tpl（php smarty3）
 | `cssrem.wxss` | **WXSS小程序样式** 是否启用WXSS支持 | `false` |
 | `cssrem.wxssScreenWidth` | **WXSS小程序样式** 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html) | `750` |
 | `cssrem.wxssDeviceWidth` | **WXSS小程序样式** 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准 | `375` |
-
-**注意：** 需要重新启动 VSCode 才会生效

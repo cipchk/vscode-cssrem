@@ -1,16 +1,20 @@
 # cssrem
 
-Converts between `px` and `rem` units in VSCode
+Converts between `px` and `rem` units in VSCode, And support WXSS.
 
 [中文版](README.zh-CN.md)
 
 ![](demo.gif)
 
-# Install
+# Features
 
-```bash
-ext install cssrem
-```
+- Support intellisense
+  - `px` -> `rem`
+  - `rem` -> `px`
+  - `px` -> `rpx` (微信小程序)
+  - `rpx` -> `px` (微信小程序)
+- Support mouse hover to display the conversion process
+- Support mark
 
 # How To Use
 
@@ -45,5 +49,3 @@ Secondly, you can also configure the global. Open your user and workspace settin
 | `cssrem.wxss` | **WXSS小程序样式** Whether to enable WXSS support | `false` |
 | `cssrem.wxssScreenWidth` | **WXSS小程序样式** 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html) | `750` |
 | `cssrem.wxssDeviceWidth` | **WXSS小程序样式** 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准 | `375` |
-
-**NOTE:** Muse be restart vscode after modification
