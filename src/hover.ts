@@ -1,29 +1,38 @@
 import { Hover, HoverProvider, MarkdownString, Position, ProviderResult, TextDocument } from 'vscode';
-import { Config } from './interface';
+import { cog } from './config';
 import { RULES } from './rules';
 
 export default class implements HoverProvider {
-  constructor(private cog: Config) {}
+  private getText(line: string, pos: Position): string {
+    const point = pos.character;
+    let text = '';
+    line.replace(/[.0-9]+(px|rem|rpx)/g, (a, b, idx) => {
+      const start = idx + 1;
+      const end = idx + a.length + 1;
+      if (!text && point >= start && point <= end) {
+        text = a;
+      }
+      return '';
+    });
+    return text;
+  }
 
   provideHover(doc: TextDocument, pos: Position): ProviderResult<Hover> {
     const line = doc.lineAt(pos.line).text.trim();
-    const arr = line.split(' ');
-    if (arr.length <= 1) {
-      return null;
-    }
-    const text = arr[1].replace(';', '');
+    const text = this.getText(line, pos);
     if (!text) {
       return null;
     }
     const rule = RULES.find(w => w.hover && w.hover.test(text));
+    console.log(text, rule);
     if (rule == null) {
       return null;
     }
-    const res = rule.hoverFn(this.cog, text);
+    const res = rule.hoverFn(text);
     if (!res || !res.documentation) {
       return null;
     }
-    if (this.cog.hover === 'onlyMark' && !line.includes(`/* ${res.type} */`)) {
+    if (cog.hover === 'onlyMark' && !line.includes(`/* ${res.type} */`)) {
       return null;
     }
     return new Hover(new MarkdownString(res.documentation));

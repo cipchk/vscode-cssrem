@@ -1,16 +1,14 @@
-import { Config, ConvertResult, Rule, RuleOPType, Type } from './interface';
+import { ConvertResult, Rule, RuleOPType, Type } from './interface';
 import { RULES } from './rules';
 
 export class CssRemProcess {
-  constructor(private cog: Config) {}
-
   convert(text: string): ConvertResult[] {
     const res = this.getRule('single', text);
     if (res.length === 0) {
       return null;
     }
 
-    return res.map(i => i.rule.fn(this.cog, i.text));
+    return res.map(i => i.rule.fn(i.text));
   }
 
   convertAll(code: string, ingores: string[], type: Type): string {
@@ -24,7 +22,7 @@ export class CssRemProcess {
       if (ingores.includes(word)) {
         return word;
       }
-      const res = rule.fn(this.cog, word);
+      const res = rule.fn(word);
       if (res) {
         return res.value;
       }
@@ -32,8 +30,8 @@ export class CssRemProcess {
     });
   }
 
-  private getRule(type: RuleOPType, text: string): Array<{ rule: Rule; text: string }> {
-    const result: Array<{ rule: Rule; text: string }> = [];
+  private getRule(type: RuleOPType, text: string): { rule: Rule; text: string }[] {
+    const result: { rule: Rule; text: string }[] = [];
     for (const rule of RULES) {
       const match = text.match(rule[type]);
       if (match) {

@@ -16,6 +16,10 @@ export interface Config {
    */
   hover: 'disabled' | 'always' | 'onlyMark';
   /**
+   * Whether to enable WXSS support
+   */
+  wxss: boolean;
+  /**
    * 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)
    */
   wxssScreenWidth: number;
@@ -29,9 +33,9 @@ export interface Rule {
   type: Type;
   single: RegExp;
   all: RegExp;
-  fn: (cog: Config, text: string) => ConvertResult;
+  fn: (text: string) => ConvertResult;
   hover?: RegExp;
-  hoverFn?: (cog: Config, text: string) => HoverResult;
+  hoverFn?: (text: string) => HoverResult;
 }
 
 export type Type = 'pxToRem' | 'remToPx' | 'pxToRpx' | 'rpxToPx';
