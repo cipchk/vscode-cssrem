@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { workspace } from 'vscode';
+import { window, workspace } from 'vscode';
 import { Config } from './interface';
 import { resetRules } from './rules';
 
@@ -13,6 +13,7 @@ function loadConfigViaFile(): void {
 
   const cssremConfigPath = join(workspace.workspaceFolders[0].uri.path, '.cssrem');
   if (!existsSync(cssremConfigPath)) {
+    console.log(`Not found file: ${cssremConfigPath}`);
     return;
   }
   try {
@@ -21,8 +22,9 @@ function loadConfigViaFile(): void {
       ...cog,
       ...res,
     };
-  } catch {
-    //
+    console.warn(`Use override config via ${cssremConfigPath} file`);
+  } catch (ex) {
+    console.warn(`Parse error in ${cssremConfigPath}`, ex);
   }
 }
 

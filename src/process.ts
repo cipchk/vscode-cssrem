@@ -2,7 +2,7 @@ import { ConvertResult, Rule, RuleOPType, Type } from './interface';
 import { RULES } from './rules';
 
 export class CssRemProcess {
-  convert(text: string): ConvertResult[] {
+  convert(text: string): ConvertResult[] | null {
     const res = this.getRule('single', text);
     if (res.length === 0) {
       return null;
