@@ -9,7 +9,7 @@ export default class implements CompletionItemProvider {
     return new Promise(resolve => {
       const lineText = document.getText(new Range(position.with(undefined, 0), position));
       const res = this.process.convert(lineText);
-      if (res.length === 0) {
+      if (res == null || res.length === 0) {
         return resolve([]);
       }
 
