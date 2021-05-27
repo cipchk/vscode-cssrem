@@ -21,7 +21,7 @@
 
 # 支持语言
 
-html vue css less scss sass stylus tpl（php smarty3）tsx
+html vue css less scss sass stylus tpl(php smarty3) tsx jsx
 
 # 配置
 
