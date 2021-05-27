@@ -24,7 +24,6 @@ export default class implements HoverProvider {
       return null;
     }
     const rule = RULES.find(w => w.hover && w.hover.test(text));
-    console.log(text, rule);
     if (rule == null) {
       return null;
     }

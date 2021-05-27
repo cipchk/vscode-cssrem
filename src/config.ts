@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { window, workspace } from 'vscode';
+import { workspace } from 'vscode';
 import { Config } from './interface';
 import { resetRules } from './rules';
 
