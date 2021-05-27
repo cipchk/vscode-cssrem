@@ -23,7 +23,7 @@ Converts between `px` and `rem` units in VSCode, And support WXSS.
 
 # Support Language
 
-html vue css less scss sass stylus tpl（php smarty3）
+html vue css less scss sass stylus tpl(php smarty3) tsx jsx
 
 # Configuration
 
