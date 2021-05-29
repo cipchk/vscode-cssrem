@@ -1,5 +1,5 @@
 import { Hover, HoverProvider, MarkdownString, Position, ProviderResult, TextDocument } from 'vscode';
-import { cog } from './config';
+import { cog, isIngore } from './config';
 import { RULES } from './rules';
 
 export default class implements HoverProvider {
@@ -18,6 +18,7 @@ export default class implements HoverProvider {
   }
 
   provideHover(doc: TextDocument, pos: Position): ProviderResult<Hover> {
+    if (isIngore(doc.uri)) return null;
     const line = doc.lineAt(pos.line).text.trim();
     const text = this.getText(line, pos);
     if (!text) {

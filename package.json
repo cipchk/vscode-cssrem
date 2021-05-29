@@ -122,6 +122,14 @@
           ],
           "description": "%cssrem.hover%"
         },
+        "cssrem.ingores": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "%cssrem.ingores%"
+        },
         "cssrem.wxss": {
           "type": "boolean",
           "default": false,
