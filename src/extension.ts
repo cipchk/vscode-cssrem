@@ -1,6 +1,6 @@
 import { commands, ExtensionContext, languages, Position, Range, Selection, TextEditor, workspace } from 'vscode';
 import CssRemProvider from './completion';
-import { cog, loadConfig } from './config';
+import { cog, isIngore, loadConfig } from './config';
 import CssRemHoverProvider from './hover';
 import { Type } from './interface';
 import { CssRemProcess } from './process';
@@ -9,6 +9,8 @@ let process: CssRemProcess;
 
 function modifyDocument(textEditor: TextEditor, ingoresViaCommand: string[], type: Type): void {
   const doc = textEditor.document;
+  if (isIngore(doc.uri)) return;
+
   let selection: Selection | Range = textEditor.selection;
   if (selection.isEmpty) {
     const start = new Position(0, 0);
