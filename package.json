@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx (cssrem)",
   "description": "Converts between px and rem & rpx units in VSCode",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -121,6 +121,22 @@
             "%cssrem.hover.onlyMark%"
           ],
           "description": "%cssrem.hover%"
+        },
+        "cssrem.ingores": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "%cssrem.ingores%"
+        },
+        "cssrem.languages": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "%cssrem.languages%"
         },
         "cssrem.wxss": {
           "type": "boolean",

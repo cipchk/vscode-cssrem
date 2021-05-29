@@ -16,6 +16,14 @@ export interface Config {
    */
   hover: 'disabled' | 'always' | 'onlyMark';
   /**
+   * 忽略清单
+   */
+  ingores: string[];
+  /**
+   * 支持语言清单
+   */
+  languages: string[];
+  /**
    * Whether to enable WXSS support
    */
   wxss: boolean;
