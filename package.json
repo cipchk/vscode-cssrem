@@ -130,6 +130,14 @@
           },
           "description": "%cssrem.ingores%"
         },
+        "cssrem.languages": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "%cssrem.languages%"
+        },
         "cssrem.wxss": {
           "type": "boolean",
           "default": false,

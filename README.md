@@ -47,6 +47,7 @@ Secondly, you can also configure the global. Open your user and workspace settin
 | `cssrem.addMark` | Whether to enabled mark | `false` |
 | `cssrem.hover` | Whether to enable display conversion data on hover, `disabled`: Disabled, `always` Anything, `onlyMark`: Only valid when `cssrem.addMark` is `true` | `onlyMark` |
 | `cssrem.ingores` | Ignore file list, like this: `[ 'demo.less', 'src' ]` | `string[]` |
+| `cssrem.languages` | Support language list, default: `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact' ]` | `string[]` |
 | `cssrem.wxss` | **WXSS小程序样式** Whether to enable WXSS support | `false` |
 | `cssrem.wxssScreenWidth` | **WXSS小程序样式** 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html) | `750` |
 | `cssrem.wxssDeviceWidth` | **WXSS小程序样式** 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准 | `375` |

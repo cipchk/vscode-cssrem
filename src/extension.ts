@@ -30,7 +30,7 @@ export function activate(context: ExtensionContext) {
 
   process = new CssRemProcess();
 
-  const LANS = ['html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact'];
+  const LANS = [...cog.languages];
   if (cog.wxss) {
     LANS.push('wxss');
   }
