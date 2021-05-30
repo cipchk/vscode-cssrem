@@ -44,7 +44,7 @@ function fixLanguages(): void {
 }
 
 export function loadConfig(): void {
-  cog = workspace.getConfiguration('cssrem') as any;
+  cog = { ...(workspace.getConfiguration('cssrem') as any) };
   loadConfigViaFile();
   fixIngores();
   fixLanguages();
