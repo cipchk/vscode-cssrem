@@ -11,7 +11,7 @@ function loadConfigViaFile(): void {
     return;
   }
 
-  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.path, '.cssrem');
+  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.fsPath, '.cssrem');
   if (!existsSync(cssremConfigPath)) {
     console.log(`Not found file: ${cssremConfigPath}`);
     return;
