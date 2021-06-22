@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from 'fs';
+import { parse } from 'jsonc-parser';
 import { join } from 'path';
 import { Uri, workspace } from 'vscode';
 import { Config } from './interface';
@@ -11,13 +12,13 @@ function loadConfigViaFile(): void {
     return;
   }
 
-  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.path, '.cssrem');
+  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.fsPath, '.cssrem');
   if (!existsSync(cssremConfigPath)) {
     console.log(`Not found file: ${cssremConfigPath}`);
     return;
   }
   try {
-    const res = JSON.parse(readFileSync(cssremConfigPath).toString('utf-8'));
+    const res = parse(readFileSync(cssremConfigPath).toString('utf-8'));
     cog = {
       ...cog,
       ...res,

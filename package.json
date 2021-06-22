@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx (cssrem)",
   "description": "Converts between px and rem & rpx units in VSCode",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -173,6 +173,7 @@
     "vscode-nls-dev": "^3.2.6"
   },
   "dependencies": {
-    "vscode-nls": "^5.0.0"
+    "vscode-nls": "^5.0.0",
+    "jsonc-parser": "^3.0.0"
   }
 }
