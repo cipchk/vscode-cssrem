@@ -173,6 +173,7 @@
     "vscode-nls-dev": "^3.2.6"
   },
   "dependencies": {
-    "vscode-nls": "^5.0.0"
+    "vscode-nls": "^5.0.0",
+    "jsonc-parser": "^3.0.0"
   }
 }

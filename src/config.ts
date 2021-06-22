@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from 'fs';
+import { parse } from 'jsonc-parser';
 import { join } from 'path';
 import { Uri, workspace } from 'vscode';
 import { Config } from './interface';
@@ -17,7 +18,7 @@ function loadConfigViaFile(): void {
     return;
   }
   try {
-    const res = JSON.parse(readFileSync(cssremConfigPath).toString('utf-8'));
+    const res = parse(readFileSync(cssremConfigPath).toString('utf-8'));
     cog = {
       ...cog,
       ...res,
