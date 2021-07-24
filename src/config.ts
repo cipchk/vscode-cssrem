@@ -8,7 +8,7 @@ import { resetRules } from './rules';
 export let cog!: Config;
 
 function loadConfigViaFile(): void {
-  if (workspace.workspaceFolders.length === 0) {
+  if (workspace.workspaceFolders == null || workspace.workspaceFolders.length === 0) {
     return;
   }
 
