@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx (cssrem)",
   "description": "Converts between px and rem & rpx units in VSCode",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -90,7 +90,7 @@
       },
       {
         "command": "extension.cssrem.rpx-switch-px",
-        "key": "Alt+z+r"
+        "key": "Alt+r"
       }
     ],
     "configuration": {
