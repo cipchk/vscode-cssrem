@@ -9,16 +9,20 @@ Converts between `px` and `rem` units in VSCode, And support WXSS.
 # Features
 
 - Support intellisense
-  - `px` -> `rem`
-  - `rem` -> `px`
-  - `px` -> `rpx` (微信小程序)
-  - `rpx` -> `px` (微信小程序)
+  - `px` -> `rem` (Shortcut key: `Alt + z`)
+  - `rem` -> `px` (Shortcut key: `Alt + z`)
+  - `px` -> `rpx` (微信小程序, 快捷键：`Alt + r`)
+  - `rpx` -> `px` (微信小程序, 快捷键：`Alt + r`)
 - Support mouse hover to display the conversion process
 - Support mark
+- Support selected area
+
+> You can use VSCODE's Keyboard shortcuts to redefine the shortcut keys.
 
 # How To Use
 
 + Auto snippet
++ Move the cursor to `14px`, press `Alt + z` to convert `rem`
 + CLI: Press `F1`, enter `cssrem`
 
 # Support Language

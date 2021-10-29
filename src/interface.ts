@@ -39,14 +39,14 @@ export interface Config {
 
 export interface Rule {
   type: Type;
-  single: RegExp;
   all: RegExp;
+  single?: RegExp;
   fn: (text: string) => ConvertResult;
   hover?: RegExp;
   hoverFn?: (text: string) => HoverResult;
 }
 
-export type Type = 'pxToRem' | 'remToPx' | 'pxToRpx' | 'rpxToPx';
+export type Type = 'pxToRem' | 'remToPx' | 'pxSwitchRem' | 'pxToRpx' | 'rpxToPx' | 'rpxSwitchPx';
 
 export type RuleOPType = 'single' | 'all';
 
