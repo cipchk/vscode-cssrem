@@ -1,28 +1,10 @@
-import { commands, ExtensionContext, languages, Position, Range, Selection, TextEditor, workspace } from 'vscode';
+import { commands, ExtensionContext, languages, workspace } from 'vscode';
 import CssRemProvider from './completion';
-import { cog, isIngore, loadConfig } from './config';
+import { cog, loadConfig } from './config';
 import CssRemHoverProvider from './hover';
-import { Type } from './interface';
 import { CssRemProcess } from './process';
 
 let process: CssRemProcess;
-
-function modifyDocument(textEditor: TextEditor, ingoresViaCommand: string[], type: Type): void {
-  const doc = textEditor.document;
-  if (isIngore(doc.uri)) return;
-
-  let selection: Selection | Range = textEditor.selection;
-  if (selection.isEmpty) {
-    const start = new Position(0, 0);
-    const end = new Position(doc.lineCount - 1, doc.lineAt(doc.lineCount - 1).text.length);
-    selection = new Range(start, end);
-  }
-
-  const text = doc.getText(selection);
-  textEditor.edit(builder => {
-    builder.replace(selection, process.convertAll(text, ingoresViaCommand, type));
-  });
-}
 
 export function activate(context: ExtensionContext) {
   loadConfig();
@@ -46,19 +28,25 @@ export function activate(context: ExtensionContext) {
   const ingoresViaCommand = ((cog.ingoresViaCommand || []) as string[]).filter(w => !!w).map(v => (v.endsWith('px') ? v : `${v}px`));
   context.subscriptions.push(
     commands.registerTextEditorCommand('extension.cssrem', textEditor => {
-      modifyDocument(textEditor, ingoresViaCommand, 'pxToRem');
+      process.modifyDocument(textEditor, ingoresViaCommand, 'pxToRem');
     }),
     commands.registerTextEditorCommand('extension.cssrem.rem-to-px', textEditor => {
-      modifyDocument(textEditor, ingoresViaCommand, 'remToPx');
+      process.modifyDocument(textEditor, ingoresViaCommand, 'remToPx');
+    }),
+    commands.registerTextEditorCommand('extension.cssrem.rem-switch-px', textEditor => {
+      process.modifyDocument(textEditor, ingoresViaCommand, 'pxSwitchRem');
     }),
   );
   if (cog.wxss) {
     context.subscriptions.push(
       commands.registerTextEditorCommand('extension.cssrem.px-to-rpx', textEditor => {
-        modifyDocument(textEditor, ingoresViaCommand, 'pxToRpx');
+        process.modifyDocument(textEditor, ingoresViaCommand, 'pxToRpx');
       }),
       commands.registerTextEditorCommand('extension.cssrem.rpx-to-px', textEditor => {
-        modifyDocument(textEditor, ingoresViaCommand, 'rpxToPx');
+        process.modifyDocument(textEditor, ingoresViaCommand, 'rpxToPx');
+      }),
+      commands.registerTextEditorCommand('extension.cssrem.rpx-switch-px', textEditor => {
+        process.modifyDocument(textEditor, ingoresViaCommand, 'rpxSwitchPx');
       }),
     );
   }

@@ -1,6 +1,6 @@
 import * as nls from 'vscode-nls';
 import { cog } from './config';
-import { Rule } from './interface';
+import { Rule, Type } from './interface';
 
 const localize = nls.config({ messageFormat: nls.MessageFormat.both })();
 
@@ -100,13 +100,22 @@ export function resetRules(): void {
         };
       },
     },
+    {
+      type: 'pxSwitchRem',
+      all: /([-]?[\d.]+)(rem|px)/g,
+      fn: text => {
+        const type: Type = text.endsWith('px') ? 'pxToRem' : 'remToPx';
+        const rule = RULES.find(r => r.type === type);
+        return rule.fn(text);
+      },
+    },
   );
   if (cog.wxss) {
     RULES.push(
       {
         type: 'pxToRpx',
-        single: /([-]?[\d.]+)p(x)?$/,
         all: /([-]?[\d.]+)px/g,
+        single: /([-]?[\d.]+)p(x)?$/,
         fn: text => {
           const px = parseFloat(text);
           const resultValue = +(px * (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
@@ -134,8 +143,8 @@ export function resetRules(): void {
       },
       {
         type: 'rpxToPx',
-        single: /([-]?[\d.]+)r(p|px)?$/,
         all: /([-]?[\d.]+)rpx/g,
+        single: /([-]?[\d.]+)r(p|px)?$/,
         fn: text => {
           const px = parseFloat(text);
           const resultValue = +(px / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
@@ -173,6 +182,15 @@ export function resetRules(): void {
               cog.wxssScreenWidth,
             ),
           };
+        },
+      },
+      {
+        type: 'rpxSwitchPx',
+        all: /([-]?[\d.]+)(rpx|px)/g,
+        fn: text => {
+          const type: Type = text.endsWith('px') ? 'pxToRpx' : 'rpxToPx';
+          const rule = RULES.find(r => r.type === type);
+          return rule.fn(text);
         },
       },
     );
