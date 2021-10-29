@@ -90,7 +90,7 @@
       },
       {
         "command": "extension.cssrem.rpx-switch-px",
-        "key": "Alt+z+r"
+        "key": "Alt+r"
       }
     ],
     "configuration": {
