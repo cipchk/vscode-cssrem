@@ -15,6 +15,7 @@ export interface Config {
    * Whether to enable display conversion data on hover, Default: onlyMark
    */
   hover: 'disabled' | 'always' | 'onlyMark';
+  currentLine: 'disabled' | 'show';
   /**
    * 忽略清单
    */
@@ -67,4 +68,6 @@ export interface ConvertResult {
 export interface HoverResult {
   type: string;
   documentation: string;
+  from: string;
+  to: string;
 }

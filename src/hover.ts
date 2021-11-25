@@ -6,7 +6,7 @@ export default class implements HoverProvider {
   private getText(line: string, pos: Position): string {
     const point = pos.character;
     let text = '';
-    line.replace(/[.0-9]+(px|rem|rpx)/g, (a, b, idx) => {
+    line.replace(/[.0-9]+(px|rem|rpx)/g, (a, _, idx) => {
       const start = idx + 1;
       const end = idx + a.length + 1;
       if (!text && point >= start && point <= end) {

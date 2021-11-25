@@ -50,6 +50,7 @@ Secondly, you can also configure the global. Open your user and workspace settin
 | `cssrem.ingoresViaCommand` | Ignores `px` to `rem` when trigger command (Unit: `string[]`), can be set `[ "1px", "0.5px" ]` | `[]` |
 | `cssrem.addMark` | Whether to enabled mark | `false` |
 | `cssrem.hover` | Whether to enable display conversion data on hover, `disabled`: Disabled, `always` Anything, `onlyMark`: Only valid when `cssrem.addMark` is `true` | `onlyMark` |
+| `cssrem.currentLine` | Whether to display mark in after line, `disabled`: Disabled, `show` Show | `show` |
 | `cssrem.ingores` | Ignore file list, like this: `[ 'demo.less', 'src' ]` | `string[]` |
 | `cssrem.languages` | Support language list, default: `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact' ]` | `string[]` |
 | `cssrem.wxss` | **WXSS小程序样式** Whether to enable WXSS support | `false` |
