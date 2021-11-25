@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx (cssrem)",
   "description": "Converts between px and rem & rpx units in VSCode",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -156,6 +156,19 @@
           },
           "description": "%cssrem.languages%"
         },
+        "cssrem.currentLine": {
+          "type": "string",
+          "enum": [
+            "disabled",
+            "show"
+          ],
+          "default": "show",
+          "markdownEnumDescriptions": [
+            "%cssrem.currentLine.disabled%",
+            "%cssrem.currentLine.show%"
+          ],
+          "description": "%cssrem.currentLine%"
+        },
         "cssrem.wxss": {
           "type": "boolean",
           "default": false,
@@ -172,7 +185,27 @@
           "description": "%cssrem.wxssDeviceWidth%"
         }
       }
-    }
+    },
+    "colors": [
+			{
+				"id": "extension.cssrem.trailingLineBackgroundColor",
+				"description": "Specifies the background color of the blame annotation for the current line",
+				"defaults": {
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
+				}
+			},
+			{
+				"id": "extension.cssrem.trailingLineForegroundColor",
+				"description": "Specifies the foreground color of the blame annotation for the current line",
+				"defaults": {
+					"dark": "#99999970",
+					"light": "#99999970",
+					"highContrast": "#99999999"
+				}
+			}
+    ]
   },
   "devDependencies": {
     "@types/node": "^16.11.6",

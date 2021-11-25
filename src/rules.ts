@@ -47,9 +47,12 @@ export function resetRules(): void {
       },
       hover: /([-]?[\d.]+)px/,
       hoverFn: pxText => {
-        const val = +(parseFloat(pxText) / cog.rootFontSize).toFixed(cog.fixedDigits);
+        const px = parseFloat(pxText);
+        const val = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
           type: 'remToPx',
+          from: `${px}px`,
+          to: `${val}rem`,
           documentation: localize(
             `pxToRem.documentation.hover`,
             'Converted from `{0}rem` according to the benchmark font-size is `{1}px`',
@@ -88,9 +91,12 @@ export function resetRules(): void {
       },
       hover: /([-]?[\d.]+)rem/,
       hoverFn: remText => {
-        const val = +(parseFloat(remText) * cog.rootFontSize).toFixed(cog.fixedDigits);
+        const rem = parseFloat(remText);
+        const val = +(rem * cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
           type: 'pxToRem',
+          from: `${rem}rem`,
+          to: `${val}px`,
           documentation: localize(
             `remToPx.documentation.hover`,
             'Converted from `{0}px` according to the benchmark font-size is `{1}px`, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify',
@@ -171,9 +177,12 @@ export function resetRules(): void {
         },
         hover: /([-]?[\d.]+)rpx/,
         hoverFn: rpxText => {
-          const val = +(parseFloat(rpxText) / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
+          const rpx = parseFloat(rpxText);
+          const val = +(rpx / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
           return {
             type: 'rpxToPx',
+            from: `${rpx}rpx`,
+            to: `${val}px`,
             documentation: localize(
               `rpxToPx.documentation.hover`,
               '**WXSS miniprogram style** Converted from `{0}px` (The current device width is `{1}px` and screen width is `{2}px`)',
