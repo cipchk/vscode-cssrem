@@ -1,6 +1,6 @@
 import { commands, ExtensionContext, languages, workspace } from 'vscode';
 import CssRemProvider from './completion';
-import { cog, loadConfig } from './config';
+import { cog, cssremConfigFileName, loadConfig } from './config';
 import CssRemHoverProvider from './hover';
 import { LineAnnotation } from './line-annotation';
 import { CssRemProcess } from './process';
@@ -52,6 +52,12 @@ export function activate(context: ExtensionContext) {
     );
   }
   if (cog.currentLine !== 'disabled') context.subscriptions.push(new LineAnnotation());
+  // .cssrem watch
+  const cssremConfigWatcher = workspace.createFileSystemWatcher(`**/${cssremConfigFileName}`);
+  cssremConfigWatcher.onDidChange(() => loadConfig());
+  cssremConfigWatcher.onDidCreate(() => loadConfig());
+  cssremConfigWatcher.onDidDelete(() => loadConfig());
+  context.subscriptions.push(cssremConfigWatcher);
 }
 
 // this method is called when your extension is deactivated

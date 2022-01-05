@@ -45,7 +45,7 @@ Secondly, you can also configure the global. Open your user and workspace settin
 | Name | Description | Default |
 |------|-------------|---------|
 | `cssrem.rootFontSize` | root font-size (Unit: `px`) | `16` |
-| `cssrem.fixedDigits` | Keeping decimal point maximum length | `6` |
+| `cssrem.fixedDigits` | Keeping decimal point maximum length | `4` |
 | `cssrem.autoRemovePrefixZero` | Automatically remove prefix 0 | `true` |
 | `cssrem.ingoresViaCommand` | Ignores `px` to `rem` when trigger command (Unit: `string[]`), can be set `[ "1px", "0.5px" ]` | `[]` |
 | `cssrem.addMark` | Whether to enabled mark | `false` |
