@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx (cssrem)",
   "description": "Converts between px and rem & rpx units in VSCode",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -104,7 +104,7 @@
         },
         "cssrem.fixedDigits": {
           "type": "number",
-          "default": 6,
+          "default": 4,
           "description": "%cssrem.fixedDigits%"
         },
         "cssrem.autoRemovePrefixZero": {

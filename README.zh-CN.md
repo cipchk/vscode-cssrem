@@ -43,7 +43,7 @@ html vue css less scss sass stylus tpl(php smarty3) tsx jsx
 | 名称 | 描述 | 默认值 |
 |----|----|-----|
 | `cssrem.rootFontSize` | 基准font-size（单位：`px`） | `16` |
-| `cssrem.fixedDigits` | 保留小数点最大长度 | `6` |
+| `cssrem.fixedDigits` | 保留小数点最大长度 | `4` |
 | `cssrem.autoRemovePrefixZero` | 自动移除0开头的前缀 | `true` |
 | `cssrem.ingoresViaCommand` | 当使用命令行批量转换时，允许忽略部分 `px` 值不转换成 `rem`（单位：`string[]`），例如：`[ "1px", "0.5px" ]` | `[]` |
 | `cssrem.addMark` | 是否启用加上标记 | `false` |

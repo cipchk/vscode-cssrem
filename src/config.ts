@@ -6,13 +6,14 @@ import { Config } from './interface';
 import { resetRules } from './rules';
 
 export let cog!: Config;
+export const cssremConfigFileName = '.cssrem';
 
 function loadConfigViaFile(): void {
   if (workspace.workspaceFolders == null || workspace.workspaceFolders.length === 0) {
     return;
   }
 
-  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.fsPath, '.cssrem');
+  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.fsPath, cssremConfigFileName);
   if (!existsSync(cssremConfigPath)) {
     console.log(`Not found file: ${cssremConfigPath}`);
     return;

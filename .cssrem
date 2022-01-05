@@ -1,6 +1,5 @@
 
 {
-  // 每次修改都需要重启
   "rootFontSize": 24,
   "fixedDigits": 3
 }
