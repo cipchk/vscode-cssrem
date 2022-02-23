@@ -38,7 +38,8 @@ export class LineAnnotation implements Disposable {
     );
   }
 
-  private onActiveTextEditor(e: TextEditor) {
+  private onActiveTextEditor(e: TextEditor | undefined) {
+    if (e == null) return;
     this._enabled = cog.languages.includes(e.document.languageId) && !isIngore(e.document.uri);
   }
 
