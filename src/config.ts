@@ -47,11 +47,14 @@ function fixLanguages(): void {
 
 export function loadConfig(): void {
   cog = { ...(workspace.getConfiguration('cssrem') as any) };
+  Object.keys(cog).forEach(key => {
+    if (typeof cog[key] === 'function') delete cog[key];
+  });
   loadConfigViaFile();
   fixIngores();
   fixLanguages();
   resetRules();
-  console.log('current config', cog);
+  console.log('Current config', cog);
 }
 
 export function isIngore(uri: Uri) {

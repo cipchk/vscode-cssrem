@@ -11,6 +11,7 @@ import {
   window,
 } from 'vscode';
 import { cog, isIngore } from './config';
+import { HoverResult } from './interface';
 import { RULES } from './rules';
 
 const annotationDecoration = window.createTextEditorDecorationType({
@@ -92,17 +93,29 @@ export class LineAnnotation implements Disposable {
   private genMessage(doc: TextDocument, lineNumber: number): string | null {
     const text = doc.lineAt(lineNumber).text.trim();
     if (text.length <= 0) return null;
-    const values = text.match(/([.0-9]+(px|rem|rpx))/g);
+    const values = text.match(/([.0-9]+(px|rem|rpx|vw))/g);
     if (values == null) return null;
 
     const results = values
-      .map(str => ({ text: str, rule: RULES.find(w => w.hover && w.hover.test(str)) }))
-      .filter(item => item.rule != null)
-      .map(item => item.rule.hoverFn(item.text));
+      .map(str => ({ text: str, rule: RULES.filter(w => w.hover && w.hover.test(str)).map(h => h.hoverFn(str)) }))
+      .filter(item => item.rule.length > 0);
 
     if (results.length <= 0) return null;
-    if (results.length === 1) return results[0].to;
-    return results.map(res => `${res.to}->${res.from}`).join(', ');
+    if (results.length === 1) return this.genMessageItem(results[0].rule);
+
+    return results.map(res => this.genMessageItem(res.rule)).join(', ');
+  }
+
+  private genMessageItem(rules: HoverResult[]): string {
+    if (rules.length === 1) return rules[0].to;
+    return (
+      `${rules[0].to}->${rules[0].from}(` +
+      rules
+        .slice(1)
+        .map(v => `${v.to}->${v.from}`)
+        .join(',') +
+      ')'
+    );
   }
 
   private clear(editor: TextEditor | undefined) {

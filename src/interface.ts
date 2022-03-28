@@ -15,6 +15,9 @@ export interface Config {
    * Whether to enable display conversion data on hover, Default: onlyMark
    */
   hover: 'disabled' | 'always' | 'onlyMark';
+  /**
+   * Whether to display mark in after line, `disabled`: Disabled, `show` Show
+   */
   currentLine: 'disabled' | 'show';
   /**
    * 忽略清单
@@ -24,6 +27,22 @@ export interface Config {
    * 支持语言清单
    */
   languages: string[];
+  /**
+   * Whether to enable rem hover
+   */
+  remHover: boolean;
+  /**
+   * Whether to enable VW switch px support
+   */
+  vw: boolean;
+  /**
+   * Whether to enable vw hover
+   */
+  vwHover: boolean;
+  /**
+   * Specifies the width of the design (equar to the browser viewport width), default: `750`
+   */
+  vwDesign: number;
   /**
    * Whether to enable WXSS support
    */
@@ -47,7 +66,7 @@ export interface Rule {
   hoverFn?: (text: string) => HoverResult;
 }
 
-export type Type = 'pxToRem' | 'remToPx' | 'pxSwitchRem' | 'pxToRpx' | 'rpxToPx' | 'rpxSwitchPx';
+export type Type = 'pxToRem' | 'remToPx' | 'pxSwitchRem' | 'pxToVw' | 'vwToPx' | 'vwSwitchPx' | 'pxToRpx' | 'rpxToPx' | 'rpxSwitchPx';
 
 export type RuleOPType = 'single' | 'all';
 
@@ -58,6 +77,8 @@ export interface ConvertResult {
   pxValue?: number | string;
   rem?: string;
   remValue?: number | string;
+  vw?: string;
+  vwValue?: number | string;
   rpx?: string;
   rpxValue?: number | string;
   label: string;

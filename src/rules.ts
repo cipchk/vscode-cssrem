@@ -45,7 +45,7 @@ export function resetRules(): void {
           ),
         };
       },
-      hover: /([-]?[\d.]+)px/,
+      hover: cog.remHover ? /([-]?[\d.]+)px/ : null,
       hoverFn: pxText => {
         const px = parseFloat(pxText);
         const val = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
@@ -94,7 +94,7 @@ export function resetRules(): void {
         const rem = parseFloat(remText);
         const val = +(rem * cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
-          type: 'pxToRem',
+          type: 'remToPx',
           from: `${rem}rem`,
           to: `${val}px`,
           documentation: localize(
@@ -116,6 +116,112 @@ export function resetRules(): void {
       },
     },
   );
+  if (cog.vw) {
+    RULES.push(
+      {
+        type: 'pxToVw',
+        all: /([-]?[\d.]+)px/g,
+        single: /([-]?[\d.]+)p(x)?$/,
+        fn: text => {
+          const px = parseFloat(text);
+          const resultValue = +(px / (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
+          const value = cleanZero(resultValue) + 'vw';
+          const label = `${px}px -> ${value}`;
+          return {
+            type: 'pxToVw',
+            text,
+            px: `${px}px`,
+            pxValue: px,
+            vwValue: resultValue,
+            vw: value,
+            value,
+            label,
+            documentation: localize(
+              `pxToVw.documentation`,
+              'Convert `{0}px` to `{1}` (current device width `{2}px`, base font size is `{3}px`)',
+              px,
+              value,
+              cog.vwDesign,
+              cog.rootFontSize,
+            ),
+          };
+        },
+        hover: cog.vwHover ? /([-]?[\d.]+)px/ : null,
+        hoverFn: pxText => {
+          const px = parseFloat(pxText);
+          const val = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
+          return {
+            type: 'pxToVw',
+            from: `${px}px`,
+            to: `${val}vw`,
+            documentation: localize(
+              `pxToVw.documentation.hover`,
+              'Convert `{0}px` to `{1}vw` (current device width `{2}px`, base font size is `{3}px`)',
+              val,
+              cog.rootFontSize,
+              cog.vwDesign,
+              cog.rootFontSize,
+            ),
+          };
+        },
+      },
+      {
+        type: 'vwToPx',
+        all: /([-]?[\d.]+)vw/g,
+        single: /([-]?[\d.]+)vw?$/,
+        fn: text => {
+          const vw = parseFloat(text);
+          const resultValue = +(vw * (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
+          const value = cleanZero(resultValue) + 'px';
+          const label = `${vw}vw -> ${value}`;
+          return {
+            type: 'vwToPx',
+            text,
+            px: `${vw}px`,
+            pxValue: vw,
+            vwValue: resultValue,
+            vw: value,
+            value,
+            label,
+            documentation: localize(
+              `vwToPx.documentation`,
+              'Convert `{0}vw` to `{1}` (current device width `{2}px`, base font size is `{3}px`)',
+              vw,
+              value,
+              cog.vwDesign,
+              cog.rootFontSize,
+            ),
+          };
+        },
+        hover: /([-]?[\d.]+)vw/,
+        hoverFn: rpxText => {
+          const vw = parseFloat(rpxText);
+          const val = +(vw * (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
+          return {
+            type: 'vwToPx',
+            from: `${vw}vw`,
+            to: `${val}px`,
+            documentation: localize(
+              `vwToPx.documentation.hover`,
+              'Converted from `{0}px` (current device width `{1}px`, base font size is `{2}px`)',
+              val,
+              cog.vwDesign,
+              cog.rootFontSize,
+            ),
+          };
+        },
+      },
+      {
+        type: 'vwSwitchPx',
+        all: /([-]?[\d.]+)(vw|px)/g,
+        fn: text => {
+          const type: Type = text.endsWith('vw') ? 'pxToVw' : 'vwToPx';
+          const rule = RULES.find(r => r.type === type);
+          return rule.fn(text);
+        },
+      },
+    );
+  }
   if (cog.wxss) {
     RULES.push(
       {
@@ -197,7 +303,7 @@ export function resetRules(): void {
         type: 'rpxSwitchPx',
         all: /([-]?[\d.]+)(rpx|px)/g,
         fn: text => {
-          const type: Type = text.endsWith('px') ? 'pxToRpx' : 'rpxToPx';
+          const type: Type = text.endsWith('rpx') ? 'rpxToPx' : 'pxToRpx';
           const rule = RULES.find(r => r.type === type);
           return rule.fn(text);
         },

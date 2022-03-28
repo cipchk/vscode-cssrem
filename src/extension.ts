@@ -38,6 +38,19 @@ export function activate(context: ExtensionContext) {
       process.modifyDocument(textEditor, ingoresViaCommand, 'pxSwitchRem');
     }),
   );
+  if (cog.vw) {
+    context.subscriptions.push(
+      commands.registerTextEditorCommand('extension.cssrem.px-to-vw', textEditor => {
+        process.modifyDocument(textEditor, ingoresViaCommand, 'pxToVw');
+      }),
+      commands.registerTextEditorCommand('extension.cssrem.vw-to-px', textEditor => {
+        process.modifyDocument(textEditor, ingoresViaCommand, 'vwToPx');
+      }),
+      commands.registerTextEditorCommand('extension.cssrem.vw-switch-px', textEditor => {
+        process.modifyDocument(textEditor, ingoresViaCommand, 'vwSwitchPx');
+      }),
+    );
+  }
   if (cog.wxss) {
     context.subscriptions.push(
       commands.registerTextEditorCommand('extension.cssrem.px-to-rpx', textEditor => {

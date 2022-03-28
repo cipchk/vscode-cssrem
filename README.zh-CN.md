@@ -9,6 +9,8 @@
 - 支持智能感知
   - `px` -> `rem` (快捷键：`Alt + z`)
   - `rem` -> `px` (快捷键：`Alt + z`)
+  - `px` -> `vw` (快捷键：`Alt + v, Alt + w`)
+  - `vw` -> `px` (快捷键：`Alt + v, Alt + w`)
   - `px` -> `rpx` (微信小程序, 快捷键：`Alt + r`)
   - `rpx` -> `px` (微信小程序, 快捷键：`Alt + r`)
 - 支持鼠标悬停显示转化过程
@@ -51,6 +53,10 @@ html vue css less scss sass stylus tpl(php smarty3) tsx jsx
 | `cssrem.currentLine` | 是否当前行尾显示标记，`disabled`: Disabled, `show` Show | `show` |
 | `cssrem.ingores` | 忽略文件清单，例如：`[ 'demo.less', 'src' ]` | `string[]` |
 | `cssrem.languages` | 支持语言清单，默认：`[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact' ]` | `string[]` |
+| `cssrem.remHover` | 是否启用 rem 悬停 | `true` |
+| `cssrem.vw` | 是否启用vw支持 | `false` |
+| `cssrem.vwHover` | 是否启用 vw 悬停 | `true` |
+| `cssrem.vwDesign` | 规定设计稿宽度（一般等同于浏览器视口宽度） | `750` |
 | `cssrem.wxss` | **WXSS小程序样式** 是否启用WXSS支持 | `false` |
 | `cssrem.wxssScreenWidth` | **WXSS小程序样式** 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html) | `750` |
 | `cssrem.wxssDeviceWidth` | **WXSS小程序样式** 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准 | `375` |
