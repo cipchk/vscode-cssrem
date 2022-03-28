@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx & vw (cssrem)",
   "description": "Converts between px and rem & rpx & vw units in VSCode",
-  "version": "2.7.1",
+  "version": "3.0.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
