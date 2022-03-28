@@ -13,6 +13,10 @@
 	"cssrem.currentLine.show": "显示",
   "cssrem.ingores": "忽略文件清单，例如：`[ 'demo.less', 'src' ]`",
   "cssrem.languages": "支持语言清单，默认：`[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact' ]`",
+  "cssrem.remHover": "是否启用 rem 悬停",
+  "cssrem.vw": "是否启用vw支持",
+  "cssrem.vwHover": "是否启用 vw 悬停",
+  "cssrem.vwDesign": "规定设计稿宽度（一般等同于浏览器视口宽度），默认 `750`",
   "cssrem.wxss": "是否启用WXSS支持",
   "cssrem.wxssScreenWidth": "规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)",
   "cssrem.wxssDeviceWidth": "设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准，默认：`375`"

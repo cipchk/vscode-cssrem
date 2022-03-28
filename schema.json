@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/cipchk/vscode-cssrem/schema",
+  "title": "CSSREM Configuration",
+  "type": "object",
+  "properties": {
+    "rootFontSize": {
+      "type": "number",
+      "default": 16,
+      "description": "Root font-size (unit: px)"
+    },
+    "fixedDigits": {
+      "type": "number",
+      "default": 6,
+      "description": "Px to rem decimal point maximum length"
+    },
+    "autoRemovePrefixZero": {
+      "type": "boolean",
+      "default": true,
+      "description": "Automatically remove prefix 0"
+    },
+    "ingoresViaCommand": {
+      "type": "array",
+      "default": [],
+      "description": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`",
+      "items": {
+        "type": "string"
+      }
+    },
+    "addMark": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to enabled mark, default: false"
+    },
+    "hover": {
+      "type": "string",
+      "enum": ["disabled", "always", "onlyMark"],
+      "default": "onlyMark",
+      "description": "Whether to enable display conversion data on hover, Default: onlyMark"
+    },
+    "currentLine": {
+      "type": "string",
+      "enum": ["disabled", "show"],
+      "default": "show",
+      "description": "Whether to display mark in after line, `disabled`: Disabled, `show` Show"
+    },
+    "ingores": {
+      "type": "array",
+      "default": [],
+      "description": "忽略清单",
+      "items": {
+        "type": "string"
+      }
+    },
+    "languages": {
+      "type": "array",
+      "default": [],
+      "description": "支持语言清单",
+      "items": {
+        "type": "string"
+      }
+    },
+    "remHover": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to enable rem hover"
+    },
+    "vw": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to enable VW switch px support"
+    },
+    "vwHover": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to enable vw hover"
+    },
+    "vwDesign": {
+      "type": "number",
+      "default": 750,
+      "description": "Specifies the width of the design (equar to the browser viewport width), default: `750`"
+    },
+    "wxss": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to enable WXSS support"
+    },
+    "wxssScreenWidth": {
+      "type": "number",
+      "default": 750,
+      "description": "规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)"
+    },
+    "wxssDeviceWidth": {
+      "type": "number",
+      "default": 375,
+      "description": "设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准，默认：`375`"
+    }
+  }
+}

@@ -1,8 +1,8 @@
 {
   "name": "cssrem",
-  "displayName": "px to rem & rpx (cssrem)",
-  "description": "Converts between px and rem & rpx units in VSCode",
-  "version": "2.7.1",
+  "displayName": "px to rem & rpx & vw (cssrem)",
+  "description": "Converts between px and rem & rpx & vw units in VSCode",
+  "version": "3.0.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -34,7 +34,10 @@
     "css rem",
     "wxss",
     "px to rpx",
-    "rpx to px"
+    "rpx to px",
+    "vw",
+    "px to vw",
+    "vw to px"
   ],
   "categories": [
     "Formatters",
@@ -71,6 +74,18 @@
         "title": "CSSRem: Rem <=> Px"
       },
       {
+        "command": "extension.cssrem.px-to-vw",
+        "title": "CSSRem: Px To VW"
+      },
+      {
+        "command": "extension.cssrem.vw-to-px",
+        "title": "CSSRem: VW To Px"
+      },
+      {
+        "command": "extension.cssrem.vw-switch-px",
+        "title": "CSSRem: VW <=> Px"
+      },
+      {
         "command": "extension.cssrem.px-to-rpx",
         "title": "CSSRem: Px To Rpx (小程序WXSS)"
       },
@@ -87,6 +102,10 @@
       {
         "command": "extension.cssrem.rem-switch-px",
         "key": "Alt+z"
+      },
+      {
+        "command": "extension.cssrem.vw-switch-px",
+        "key": "Alt+v Alt+w"
       },
       {
         "command": "extension.cssrem.rpx-switch-px",
@@ -169,6 +188,26 @@
           ],
           "description": "%cssrem.currentLine%"
         },
+        "cssrem.remHover": {
+          "type": "boolean",
+          "default": true,
+          "description": "%cssrem.remHover%"
+        },
+        "cssrem.vw": {
+          "type": "boolean",
+          "default": false,
+          "description": "%cssrem.vw%"
+        },
+        "cssrem.vwHover": {
+          "type": "boolean",
+          "default": true,
+          "description": "%cssrem.vwHover%"
+        },
+        "cssrem.vwDesign": {
+          "type": "number",
+          "default": 750,
+          "description": "%cssrem.vwDesign%"
+        },
         "cssrem.wxss": {
           "type": "boolean",
           "default": false,
@@ -209,10 +248,10 @@
   },
   "devDependencies": {
     "@types/node": "^16.11.6",
-    "typescript": "^4.4.4",
+    "typescript": "^4.6.3",
     "vscode": "^1.1.37",
-    "mocha": "^9.1.3",
-    "@types/mocha": "^9.0.0",
+    "mocha": "^9.2.2",
+    "@types/mocha": "^9.1.0",
     "vsce": "^1.100.2",
     "gulp": "^4.0.2",
     "gulp-filter": "^7.0.0",
@@ -221,7 +260,7 @@
     "run-sequence": "^2.2.1",
     "del": "^6.0.0",
     "event-stream": "^4.0.1",
-    "vscode-nls-dev": "^3.3.2"
+    "vscode-nls-dev": "^4.0.0"
   },
   "dependencies": {
     "vscode-nls": "^5.0.0",

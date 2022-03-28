@@ -1,5 +1,6 @@
-
 {
+  "$schema": "https://github.com/cipchk/vscode-cssrem/blob/master/schema.json",
   "rootFontSize": 24,
-  "fixedDigits": 3
+  "fixedDigits": 3,
+  "vw": true
 }
