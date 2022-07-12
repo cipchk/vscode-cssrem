@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx & vw (cssrem)",
   "description": "Converts between px and rem & rpx & vw units in VSCode",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -226,25 +226,74 @@
       }
     },
     "colors": [
-			{
-				"id": "extension.cssrem.trailingLineBackgroundColor",
-				"description": "Specifies the background color of the blame annotation for the current line",
-				"defaults": {
-					"dark": "#00000000",
-					"light": "#00000000",
-					"highContrast": "#00000000"
-				}
-			},
-			{
-				"id": "extension.cssrem.trailingLineForegroundColor",
-				"description": "Specifies the foreground color of the blame annotation for the current line",
-				"defaults": {
-					"dark": "#99999970",
-					"light": "#99999970",
-					"highContrast": "#99999999"
-				}
-			}
-    ]
+      {
+        "id": "extension.cssrem.trailingLineBackgroundColor",
+        "description": "Specifies the background color of the blame annotation for the current line",
+        "defaults": {
+          "dark": "#00000000",
+          "light": "#00000000",
+          "highContrast": "#00000000"
+        }
+      },
+      {
+        "id": "extension.cssrem.trailingLineForegroundColor",
+        "description": "Specifies the foreground color of the blame annotation for the current line",
+        "defaults": {
+          "dark": "#99999970",
+          "light": "#99999970",
+          "highContrast": "#99999999"
+        }
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorFocus",
+          "command": "extension.cssrem",
+          "group": "cssrem"
+        },
+        {
+          "when": "editorFocus",
+          "command": "extension.cssrem.rem-to-px",
+          "group": "cssrem"
+        },
+        {
+          "when": "editorFocus",
+          "command": "extension.cssrem.rem-switch-px",
+          "group": "cssrem"
+        },
+        {
+          "when": "editorFocus",
+          "command": "extension.cssrem.px-to-vw",
+          "group": "cssrem"
+        },
+        {
+          "when": "editorFocus",
+          "command": "extension.cssrem.vw-to-px",
+          "group": "cssrem"
+        },
+        {
+          "when": "editorFocus",
+          "command": "extension.cssrem.vw-switch-px",
+          "group": "cssrem"
+        },
+        {
+          "when": "editorFocus",
+          "group": "cssrem",
+          "command": "extension.cssrem.px-to-rpx"
+        },
+        {
+          "command": "extension.cssrem.rpx-to-px",
+          "when": "editorFocus",
+          "group": "cssrem"
+        },
+        {
+          "command": "extension.cssrem.rpx-switch-px",
+          "when": "editorFocus",
+          "group": "cssrem"
+        }
+      ]
+    }
   },
   "devDependencies": {
     "@types/node": "^16.11.6",
