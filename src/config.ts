@@ -9,7 +9,7 @@ export let cog!: Config;
 export const cssremConfigFileName = '.cssrem';
 
 function loadConfigViaFile(): void {
-  if (workspace.workspaceFolders == null || workspace.workspaceFolders.length === 0) {
+  if (workspace.workspaceFolders == null || workspace.workspaceFolders?.length <= 0) {
     return;
   }
 
@@ -32,9 +32,11 @@ function loadConfigViaFile(): void {
 
 function fixIngores(): void {
   if (!Array.isArray(cog.ingores)) cog.ingores = [];
-  if (workspace.workspaceFolders.length === 0) {
+
+  if (workspace.workspaceFolders == null || workspace.workspaceFolders?.length <= 0) {
     return;
   }
+
   const rootPath = workspace.workspaceFolders[0].uri.path;
   cog.ingores = cog.ingores.map(p => join(rootPath, p));
 }
