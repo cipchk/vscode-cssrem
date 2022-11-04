@@ -1,3 +1,10 @@
+---
+name: "\U0001F41EBug report"
+about: Report a bug
+title: "[Bug] Bug description"
+labels: "bug"
+---
+
 # 🐛 What is the bug? How can we reproduce it?
 
 Please put here any steps, code or any information that can help us
