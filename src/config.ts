@@ -44,7 +44,20 @@ function fixIngores(): void {
 function fixLanguages(): void {
   if (!Array.isArray(cog.languages)) cog.languages = [];
   if (cog.languages.length > 0) return;
-  cog.languages = ['html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact'];
+  cog.languages = [
+    'html',
+    'vue',
+    'css',
+    'postcss',
+    'less',
+    'scss',
+    'sass',
+    'stylus',
+    'javascriptreact',
+    'typescriptreact',
+    'javascript',
+    'typescript',
+  ];
 }
 
 export function loadConfig(): void {
