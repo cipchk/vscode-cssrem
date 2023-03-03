@@ -54,7 +54,7 @@ Secondly, you can also configure the global. Open your user and workspace settin
 | `cssrem.hover` | Whether to enable display conversion data on hover, `disabled`: Disabled, `always` Anything, `onlyMark`: Only valid when `cssrem.addMark` is `true` | `onlyMark` |
 | `cssrem.currentLine` | Whether to display mark in after line, `disabled`: Disabled, `show` Show | `show` |
 | `cssrem.ingores` | Ignore file list, like this: `[ 'demo.less', 'src' ]` | `string[]` |
-| `cssrem.languages` | Support language list, default: `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact' ]` | `string[]` |
+| `cssrem.languages` | Support language list `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`, By default all include | `string[]` |
 | `cssrem.remHover` | Whether to enable rem hover | `true` |
 | `cssrem.vw` | Whether to enable VW switch px support | `false` |
 | `cssrem.vwHover` | Whether to enable vw hover | `true` |
