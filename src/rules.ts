@@ -215,7 +215,7 @@ export function resetRules(): void {
         type: 'vwSwitchPx',
         all: /([-]?[\d.]+)(vw|px)/g,
         fn: text => {
-          const type: Type = text.endsWith('vw') ? 'pxToVw' : 'vwToPx';
+          const type: Type = text.endsWith('px') ? 'pxToVw' : 'vwToPx';
           const rule = RULES.find(r => r.type === type);
           return rule.fn(text);
         },
