@@ -12,7 +12,7 @@
   "cssrem.currentLine.disabled": "Disabled",
   "cssrem.currentLine.show": "Show",
   "cssrem.ingores": "Ignore file list, like this: `[ 'demo.less', 'src' ]`",
-  "cssrem.languages": "Support language list `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`, By default all include",
+  "cssrem.languages": "Support language list `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'tpl', 'wxss', 'twig', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`, By default all include",
   "cssrem.remHover": "Whether to enable rem hover",
   "cssrem.vw": "Whether to enable VW switch px support",
   "cssrem.vwHover": "Whether to enable vw hover",

@@ -52,7 +52,7 @@ html vue css less scss sass stylus tpl(php smarty3) tsx jsx
 | `cssrem.hover` | 是否启用悬停时显示转换数据, `disabled`: Disabled, `always` Anything, `onlyMark`: Only valid when `cssrem.addMark` is `true` | `onlyMark` |
 | `cssrem.currentLine` | 是否当前行尾显示标记，`disabled`: Disabled, `show` Show | `show` |
 | `cssrem.ingores` | 忽略文件清单，例如：`[ 'demo.less', 'src' ]` | `string[]` |
-| `cssrem.languages` | 支持语言清单 `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`，默认全部包含 | `string[]` |
+| `cssrem.languages` | 支持语言清单 `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'tpl', 'wxss', 'twig', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`，默认全部包含 | `string[]` |
 | `cssrem.remHover` | 是否启用 rem 悬停 | `true` |
 | `cssrem.vw` | 是否启用vw支持 | `false` |
 | `cssrem.vwHover` | 是否启用 vw 悬停 | `true` |

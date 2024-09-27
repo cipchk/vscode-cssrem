@@ -55,6 +55,7 @@
     "onLanguage:stylus",
     "onLanguage:tpl",
     "onLanguage:wxss",
+    "onLanguage:twig",
     "onLanguage:javascriptreact",
     "onLanguage:typescriptreact",
     "onLanguage:javascript",
@@ -228,24 +229,24 @@
       }
     },
     "colors": [
-			{
-				"id": "extension.cssrem.trailingLineBackgroundColor",
-				"description": "Specifies the background color of the blame annotation for the current line",
-				"defaults": {
-					"dark": "#00000000",
-					"light": "#00000000",
-					"highContrast": "#00000000"
-				}
-			},
-			{
-				"id": "extension.cssrem.trailingLineForegroundColor",
-				"description": "Specifies the foreground color of the blame annotation for the current line",
-				"defaults": {
-					"dark": "#99999970",
-					"light": "#99999970",
-					"highContrast": "#99999999"
-				}
-			}
+      {
+        "id": "extension.cssrem.trailingLineBackgroundColor",
+        "description": "Specifies the background color of the blame annotation for the current line",
+        "defaults": {
+          "dark": "#00000000",
+          "light": "#00000000",
+          "highContrast": "#00000000"
+        }
+      },
+      {
+        "id": "extension.cssrem.trailingLineForegroundColor",
+        "description": "Specifies the foreground color of the blame annotation for the current line",
+        "defaults": {
+          "dark": "#99999970",
+          "light": "#99999970",
+          "highContrast": "#99999999"
+        }
+      }
     ]
   },
   "devDependencies": {
@@ -267,5 +268,6 @@
   "dependencies": {
     "vscode-nls": "^5.0.0",
     "jsonc-parser": "^3.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

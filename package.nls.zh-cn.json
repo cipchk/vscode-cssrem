@@ -12,7 +12,7 @@
 	"cssrem.currentLine.disabled": "禁用",
 	"cssrem.currentLine.show": "显示",
 	"cssrem.ingores": "忽略文件清单，例如：`[ 'demo.less', 'src' ]`",
-	"cssrem.languages": "支持语言清单 `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`，默认全部包含",
+	"cssrem.languages": "支持语言清单 `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'tpl', 'wxss', 'twig', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`，默认全部包含",
 	"cssrem.remHover": "是否启用 rem 悬停",
 	"cssrem.vw": "是否启用vw支持",
 	"cssrem.vwHover": "是否启用 vw 悬停",
