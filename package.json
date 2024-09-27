@@ -2,7 +2,7 @@
   "name": "cssrem",
   "displayName": "px to rem & rpx & vw (cssrem)",
   "description": "Converts between px and rem & rpx & vw units in VSCode",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "publisher": "cipchk",
   "icon": "icon.png",
   "license": "MIT",
@@ -10,8 +10,7 @@
   "scripts": {
     "release": "gulp package",
     "build": "gulp build",
-    "watch": "gulp watch",
-    "ts:build": "npx tsc ./tsconfig.json"
+    "watch": "gulp watch"
   },
   "engines": {
     "vscode": "^1.30.x"

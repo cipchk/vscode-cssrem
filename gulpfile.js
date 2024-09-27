@@ -69,7 +69,7 @@ const vscePublishTask = function () {
 };
 
 const vscePackageTask = function () {
-  return vsce.createVSIX({ useYarn: true });
+  return vsce.createVSIX({ useYarn: false });
 };
 
 gulp.task('default', buildTask);
