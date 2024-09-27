@@ -8,10 +8,10 @@
   "license": "MIT",
   "licenseUrl": "LICENSE",
   "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install",
     "release": "gulp package",
     "build": "gulp build",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "ts:build": "npx tsc ./tsconfig.json"
   },
   "engines": {
     "vscode": "^1.30.x"
@@ -228,44 +228,44 @@
       }
     },
     "colors": [
-			{
-				"id": "extension.cssrem.trailingLineBackgroundColor",
-				"description": "Specifies the background color of the blame annotation for the current line",
-				"defaults": {
-					"dark": "#00000000",
-					"light": "#00000000",
-					"highContrast": "#00000000"
-				}
-			},
-			{
-				"id": "extension.cssrem.trailingLineForegroundColor",
-				"description": "Specifies the foreground color of the blame annotation for the current line",
-				"defaults": {
-					"dark": "#99999970",
-					"light": "#99999970",
-					"highContrast": "#99999999"
-				}
-			}
+      {
+        "id": "extension.cssrem.trailingLineBackgroundColor",
+        "description": "Specifies the background color of the blame annotation for the current line",
+        "defaults": {
+          "dark": "#00000000",
+          "light": "#00000000",
+          "highContrast": "#00000000"
+        }
+      },
+      {
+        "id": "extension.cssrem.trailingLineForegroundColor",
+        "description": "Specifies the foreground color of the blame annotation for the current line",
+        "defaults": {
+          "dark": "#99999970",
+          "light": "#99999970",
+          "highContrast": "#99999999"
+        }
+      }
     ]
   },
   "devDependencies": {
-    "@types/node": "^16.11.6",
-    "typescript": "^4.6.3",
-    "vscode": "^1.1.37",
-    "mocha": "^9.2.2",
     "@types/mocha": "^9.1.0",
-    "vsce": "^1.100.2",
+    "@types/node": "^16.11.6",
+    "del": "^6.0.0",
+    "event-stream": "^4.0.1",
     "gulp": "^4.0.2",
     "gulp-filter": "^7.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-typescript": "6.0.0-alpha.1",
-    "run-sequence": "^2.2.1",
-    "del": "^6.0.0",
-    "event-stream": "^4.0.1",
+    "mocha": "^9.2.2",
+    "typescript": "^4.6.3",
+    "vsce": "^1.100.2",
+    "vscode": "^1.1.37",
     "vscode-nls-dev": "^4.0.0"
   },
   "dependencies": {
-    "vscode-nls": "^5.0.0",
-    "jsonc-parser": "^3.0.0"
-  }
+    "jsonc-parser": "^3.0.0",
+    "vscode-nls": "^5.0.0"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

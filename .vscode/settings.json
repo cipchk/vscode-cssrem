@@ -3,5 +3,6 @@
   "cssrem.ingores": [],
   "files.associations": {
     ".cssrem": "jsonc"
-  }
+  },
+  "editor.formatOnSave": true
 }
