@@ -4,13 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 
 const gulp = require('gulp');
-const path = require('path');
 
 const ts = require('gulp-typescript');
 const typescript = require('typescript');
 const sourcemaps = require('gulp-sourcemaps');
 const del = require('del');
-const runSequence = require('run-sequence');
 const es = require('event-stream');
 const vsce = require('vsce');
 const nls = require('vscode-nls-dev');
