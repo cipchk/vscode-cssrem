@@ -150,7 +150,6 @@ export function resetRules(): void {
         hoverFn: pxText => {
           const px = parseFloat(pxText);
           const val = +(px / (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
-          console.log('pxToVw', px, val, cog.rootFontSize);
           return {
             type: 'pxToVw',
             from: `${px}px`,
