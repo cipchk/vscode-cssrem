@@ -1,8 +1,9 @@
 {
-  // 每次修改都立即生效
-  "cssrem.ingores": [],
   "files.associations": {
     ".cssrem": "jsonc"
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  }
 }

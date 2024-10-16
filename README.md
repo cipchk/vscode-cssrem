@@ -37,6 +37,7 @@ The `.cssrem` file in the root directory has the highest priority, and it's form
 
 ```json
 {
+  "$schema": "https://raw.githubusercontent.com/cipchk/vscode-cssrem/master/schema.json",
   "rootFontSize": 18,
   "fixedDigits": 3
 }
@@ -62,3 +63,19 @@ Secondly, you can also configure the global. Open your user and workspace settin
 | `cssrem.wxss` | **WXSS小程序样式** Whether to enable WXSS support | `false` |
 | `cssrem.wxssScreenWidth` | **WXSS小程序样式** 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html) | `750` |
 | `cssrem.wxssDeviceWidth` | **WXSS小程序样式** 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准 | `375` |
+
+# QA
+
+**JSX not working?**
+
+By default, vscode won’t auto-complete strings in JSX. You can configure this in your project’s `.vscode/settings.json`:
+
+```json
+{
+  "editor.quickSuggestions": {
+		"other": true,
+		"comments": false,
+		"strings": true
+	}
+}
+```

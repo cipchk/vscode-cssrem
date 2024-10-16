@@ -35,6 +35,7 @@ html vue css less scss sass stylus tpl(php smarty3) tsx jsx
 
 ```json
 {
+  "$schema": "https://raw.githubusercontent.com/cipchk/vscode-cssrem/master/schema.json",
   "rootFontSize": 18,
   "fixedDigits": 3
 }
@@ -60,3 +61,19 @@ html vue css less scss sass stylus tpl(php smarty3) tsx jsx
 | `cssrem.wxss` | **WXSS小程序样式** 是否启用WXSS支持 | `false` |
 | `cssrem.wxssScreenWidth` | **WXSS小程序样式** 规定屏幕宽度，默认 `750`，[尺寸单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html) | `750` |
 | `cssrem.wxssDeviceWidth` | **WXSS小程序样式** 设备分辨率宽度，官方推荐使用 iPhone6 作为视觉稿的标准 | `375` |
+
+# QA
+
+**JSX无法生效?**
+
+vscode 默认情况下不会对自动触发字符串内的补全，可以在项目 `.vscode/settings.json` 配置：
+
+```json
+{
+  "editor.quickSuggestions": {
+		"other": true,
+		"comments": false,
+		"strings": true
+	}
+}
+```
