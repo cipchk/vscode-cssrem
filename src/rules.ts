@@ -21,7 +21,7 @@ export function resetRules(): void {
     {
       type: 'pxToRem',
       all: /([-]?[\d.]+)px/g,
-      single: /([-]?[\d.]+)p(x)?$/,
+      single: /([-]?[\d.]+)px?$/,
       fn: text => {
         const px = parseFloat(text);
         const resultValue = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
@@ -121,7 +121,7 @@ export function resetRules(): void {
       {
         type: 'pxToVw',
         all: /([-]?[\d.]+)px/g,
-        single: /([-]?[\d.]+)p(x)?$/,
+        single: /([-]?[\d.]+)px?$/,
         fn: text => {
           const px = parseFloat(text);
           const resultValue = +(px / (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
@@ -227,7 +227,7 @@ export function resetRules(): void {
       {
         type: 'pxToRpx',
         all: /([-]?[\d.]+)px/g,
-        single: /([-]?[\d.]+)p(x)?$/,
+        single: /([-]?[\d.]+)px?$/,
         fn: text => {
           const px = parseFloat(text);
           const resultValue = +(px * (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
