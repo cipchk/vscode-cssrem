@@ -13,7 +13,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-      - run: npm ci
+          cache: "yarn"
+      - uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock', '**/*.patch') }}
+      - name: Install node modules
+        run: yarn install --frozen-lockfile
       - run: npm run package
 
   test:
@@ -23,7 +29,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-      - run: npm ci
+          cache: "yarn"
+      - uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock', '**/*.patch') }}
+      - name: Install node modules
+        run: yarn install --frozen-lockfile
       - run: npm run test
 
   lint:
@@ -33,5 +45,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-      - run: npm ci
+          cache: "yarn"
+      - uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock', '**/*.patch') }}
+      - name: Install node modules
+        run: yarn install --frozen-lockfile
       - run: npm run lint

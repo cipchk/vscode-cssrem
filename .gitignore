@@ -2,7 +2,7 @@
 node_modules
 
 *.vsix
-yarn.lock
+# yarn.lock
 
 # Yarn
 # yarn.lock
