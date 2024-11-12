@@ -1,6 +1,7 @@
 import { CompletionItem, CompletionItemKind, CompletionItemProvider, MarkdownString, Position, Range, TextDocument } from 'vscode';
 import { cog, isIngore } from './config';
 import { CssRemProcess } from './process';
+import { isDisabledNextLine } from './ignore-comment';
 
 export default class implements CompletionItemProvider {
   constructor(private lan: string, private process: CssRemProcess) {}
@@ -9,6 +10,7 @@ export default class implements CompletionItemProvider {
     if (isIngore(document.uri)) return Promise.resolve([]);
 
     return new Promise(resolve => {
+      if (isDisabledNextLine(document, position.line)) return null;
       const lineText = document.getText(new Range(position.with(undefined, 0), position));
       const res = this.process.convert(lineText);
       if (res == null || res.length === 0) {

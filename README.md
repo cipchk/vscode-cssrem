@@ -27,6 +27,18 @@ Converts between `px` and `rem` units in VSCode, And support WXSS.
 + Move the cursor to `14px`, press `Alt + z` to convert `rem`
 + CLI: Press `F1`, enter `cssrem`
 
+## Ignoring code
+
+You can ignore:
+- Entire files by setting ignores in `.cssrem` or `.vscode/settings.json`
+- The next line by using `// cssrem-disable-next-line`
+
+```less
+// cssrem-disable-next-line
+@media (min-width: 768px) {}
+```
+> The above code will ignore processing of `768px`
+
 # Support Language
 
 html vue css less scss sass stylus tpl(php smarty3) tsx jsx

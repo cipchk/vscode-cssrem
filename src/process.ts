@@ -2,9 +2,10 @@ import { ConvertResult, Rule, RuleOPType, Type } from './interface';
 import { RULES } from './rules';
 import { Position, Range, Selection, TextEditor } from 'vscode';
 import { isIngore } from './config';
+import { isDisabledNextLine, isDisabledNextLineViaText } from './ignore-comment';
 
 export class CssRemProcess {
-  convert(text: string): ConvertResult[] | null {
+  convert(text?: string): ConvertResult[] | null {
     const res = this.getRule('single', text);
     if (res.length === 0) {
       return null;
@@ -13,23 +14,31 @@ export class CssRemProcess {
     return res.map(i => i.rule.fn(i.text));
   }
 
-  convertAll(code: string, ignores: string[], type: Type): string {
+  private convertAll(code: string, ignores: string[], type: Type): string {
     if (!code) {
       return code;
     }
 
     const rule = RULES.find(w => w.type === type);
 
-    return code.replace(rule.all, (word: string) => {
-      if (ignores.includes(word)) {
-        return word;
-      }
-      const res = rule.fn(word);
-      if (res) {
-        return res.value;
-      }
-      return word;
-    });
+    const lines = code.split('\n');
+
+    const result = lines
+      .map((line, lineIndex) => {
+        return line.replace(rule.all, word => {
+          if (ignores.includes(word)) {
+            return word;
+          }
+          if (lineIndex > 0 && isDisabledNextLineViaText(lines[lineIndex - 1])) return null;
+          const res = rule.fn(word);
+          if (res) {
+            return res.value;
+          }
+          return word;
+        });
+      })
+      .join('\n');
+    return result;
   }
 
   private getRule(type: RuleOPType, text: string): { rule: Rule; text: string }[] {

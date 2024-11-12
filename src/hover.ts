@@ -1,6 +1,7 @@
 import { Hover, HoverProvider, MarkdownString, Position, ProviderResult, TextDocument } from 'vscode';
 import { cog, isIngore } from './config';
 import { RULES } from './rules';
+import { isDisabledNextLine } from './ignore-comment';
 
 export default class implements HoverProvider {
   private getText(line: string, pos: Position): string {
@@ -21,9 +22,8 @@ export default class implements HoverProvider {
     if (isIngore(doc.uri)) return null;
     const line = doc.lineAt(pos.line).text.trim();
     const text = this.getText(line, pos);
-    if (!text) {
-      return null;
-    }
+    if (!text) return null;
+    if (isDisabledNextLine(doc, pos.line)) return null;
     let results = RULES.filter(w => w.hover && w.hover.test(text))
       .map(rule => rule.hoverFn(text))
       .filter(h => h != null && h.documentation);
