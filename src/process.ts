@@ -11,7 +11,7 @@ export class CssRemProcess {
       return null;
     }
 
-    return res.map(i => i.rule.fn(i.text));
+    return res.map(i => i.rule.fn(i.text)!);
   }
 
   private convertAll(code: string, ignores: string[], type: Type): string {
@@ -20,6 +20,9 @@ export class CssRemProcess {
     }
 
     const rule = RULES.find(w => w.type === type);
+    if (!rule) {
+      return code;
+    }
 
     const lines = code.split('\n');
 
@@ -44,7 +47,7 @@ export class CssRemProcess {
   private getRule(type: RuleOPType, text: string): { rule: Rule; text: string }[] {
     const result: { rule: Rule; text: string }[] = [];
     for (const rule of RULES) {
-      const match = text.match(rule[type]);
+      const match = text.match((rule as any)[type]);
       if (match && match[1]) {
         result.push({ rule, text: match[1] });
       }

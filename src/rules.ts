@@ -1,8 +1,6 @@
-import * as nls from 'vscode-nls';
+import { l10n } from 'vscode';
 import { cog } from './config';
 import { Rule, Type } from './interface';
-
-const localize = nls.config({ messageFormat: nls.MessageFormat.both })();
 
 export const RULES: Rule[] = [];
 
@@ -36,29 +34,25 @@ export function resetRules(): void {
           rem: value,
           value,
           label,
-          documentation: localize(
-            `pxToRem.documentation`,
-            'Convert `{0}px` to `{1}` (the current benchmark font-size is `{2}px`, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify',
+          documentation: l10n.t('Convert `{px}px` to `{value}` (the current benchmark font-size is `{rootFontSize}px`', {
             px,
             value,
-            cog.rootFontSize,
-          ),
+            rootFontSize: cog.rootFontSize,
+          }),
         };
       },
       hover: cog.remHover ? /([-]?[\d.]+)px/ : null,
       hoverFn: pxText => {
         const px = parseFloat(pxText);
-        const val = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
+        const rem = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
           type: 'remToPx',
           from: `${px}px`,
-          to: `${val}rem`,
-          documentation: localize(
-            `pxToRem.documentation.hover`,
-            'Converted from `{0}rem` according to the benchmark font-size is `{1}px`',
-            val,
-            cog.rootFontSize,
-          ),
+          to: `${rem}rem`,
+          documentation: l10n.t('Converted from `{rem}rem` according to the benchmark font-size is `{rootFontSize}px`', {
+            rem,
+            rootFontSize: cog.rootFontSize,
+          }),
         };
       },
     },
@@ -80,29 +74,25 @@ export function resetRules(): void {
           rem: value,
           value,
           label,
-          documentation: localize(
-            `remToPx.documentation`,
-            `Convert {0}rem to {1} (the current benchmark font-size is {2}px, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify`,
+          documentation: l10n.t('Convert {px}rem to {value} (the current benchmark font-size is {rootFontSize}px', {
             px,
             value,
-            cog.rootFontSize,
-          ),
+            rootFontSize: cog.rootFontSize,
+          }),
         };
       },
       hover: /([-]?[\d.]+)rem/,
       hoverFn: remText => {
         const rem = parseFloat(remText);
-        const val = +(rem * cog.rootFontSize).toFixed(cog.fixedDigits);
+        const px = +(rem * cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
           type: 'remToPx',
           from: `${rem}rem`,
-          to: `${val}px`,
-          documentation: localize(
-            `remToPx.documentation.hover`,
-            'Converted from `{0}px` according to the benchmark font-size is `{1}px`, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify',
-            val,
-            cog.rootFontSize,
-          ),
+          to: `${px}px`,
+          documentation: l10n.t('Converted from `{px}px` according to the benchmark font-size is `{rootFontSize}px`', {
+            px,
+            rootFontSize: cog.rootFontSize,
+          }),
         };
       },
     },
@@ -112,7 +102,7 @@ export function resetRules(): void {
       fn: text => {
         const type: Type = text.endsWith('px') ? 'pxToRem' : 'remToPx';
         const rule = RULES.find(r => r.type === type);
-        return rule.fn(text);
+        return rule?.fn(text);
       },
     },
   );
@@ -125,42 +115,44 @@ export function resetRules(): void {
         fn: text => {
           const px = parseFloat(text);
           const resultValue = +(px / (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
-          const value = cleanZero(resultValue) + 'vw';
-          const label = `${px}px -> ${value}`;
+          const vw = cleanZero(resultValue) + 'vw';
+          const label = `${px}px -> ${vw}`;
           return {
             type: 'pxToVw',
             text,
             px: `${px}px`,
             pxValue: px,
             vwValue: resultValue,
-            vw: value,
-            value,
+            vw: vw,
+            value: vw,
             label,
-            documentation: localize(
-              `pxToVw.documentation`,
-              'Convert `{0}px` to `{1}` (current device width `{2}px`, base font size is `{3}px`)',
-              px,
-              value,
-              cog.vwDesign,
-              cog.rootFontSize,
+            documentation: l10n.t(
+              'Convert `{px}px` to `{vw}` (current device width `{vwDesign}px`, base font size is `{rootFontSize}px`)',
+              {
+                px,
+                value: vw,
+                vwDesign: cog.vwDesign,
+                rootFontSize: cog.rootFontSize,
+              },
             ),
           };
         },
         hover: cog.vwHover ? /([-]?[\d.]+)px/ : null,
         hoverFn: pxText => {
           const px = parseFloat(pxText);
-          const val = +(px / (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
+          const vw = +(px / (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
           return {
             type: 'pxToVw',
             from: `${px}px`,
-            to: `${val}vw`,
-            documentation: localize(
-              `pxToVw.documentation.hover`,
-              'Convert `{0}px` to `{1}vw` (current device width `{2}px`, base font size is `{3}px`)',
-              val,
-              cog.rootFontSize,
-              cog.vwDesign,
-              cog.rootFontSize,
+            to: `${vw}vw`,
+            documentation: l10n.t(
+              'Convert `{px}px` to `{vw}vw` (current device width `{vwDesign}px`, base font size is `{rootFontSize}px`)',
+              {
+                px,
+                vw,
+                vwDesign: cog.vwDesign,
+                rootFontSize: cog.rootFontSize,
+              },
             ),
           };
         },
@@ -172,42 +164,41 @@ export function resetRules(): void {
         fn: text => {
           const vw = parseFloat(text);
           const resultValue = +(vw * (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
-          const value = cleanZero(resultValue) + 'px';
-          const label = `${vw}vw -> ${value}`;
+          const px = cleanZero(resultValue) + 'px';
+          const label = `${vw}vw -> ${px}`;
           return {
             type: 'vwToPx',
             text,
             px: `${vw}px`,
             pxValue: vw,
             vwValue: resultValue,
-            vw: value,
-            value,
+            vw: px,
+            value: px,
             label,
-            documentation: localize(
-              `vwToPx.documentation`,
-              'Convert `{0}vw` to `{1}` (current device width `{2}px`, base font size is `{3}px`)',
-              vw,
-              value,
-              cog.vwDesign,
-              cog.rootFontSize,
+            documentation: l10n.t(
+              'Convert `{vw}vw` to `{px}` (current device width `{vwDesign}px`, base font size is `{rootFontSize}px`)',
+              {
+                vw,
+                px,
+                vwDesign: cog.vwDesign,
+                rootFontSize: cog.rootFontSize,
+              },
             ),
           };
         },
         hover: /([-]?[\d.]+)vw/,
         hoverFn: rpxText => {
           const vw = parseFloat(rpxText);
-          const val = +(vw * (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
+          const px = +(vw * (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
           return {
             type: 'vwToPx',
             from: `${vw}vw`,
-            to: `${val}px`,
-            documentation: localize(
-              `vwToPx.documentation.hover`,
-              'Converted from `{0}px` (current device width `{1}px`, base font size is `{2}px`)',
-              val,
-              cog.vwDesign,
-              cog.rootFontSize,
-            ),
+            to: `${px}px`,
+            documentation: l10n.t('Converted from `{px}px` (current device width `{vwDesign}px`, base font size is `{rootFontSize}px`)', {
+              px,
+              vwDesign: cog.vwDesign,
+              rootFontSize: cog.rootFontSize,
+            }),
           };
         },
       },
@@ -217,7 +208,7 @@ export function resetRules(): void {
         fn: text => {
           const type: Type = text.endsWith('px') ? 'pxToVw' : 'vwToPx';
           const rule = RULES.find(r => r.type === type);
-          return rule.fn(text);
+          return rule?.fn(text);
         },
       },
     );
@@ -231,24 +222,25 @@ export function resetRules(): void {
         fn: text => {
           const px = parseFloat(text);
           const resultValue = +(px * (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
-          const value = cleanZero(resultValue) + 'rpx';
-          const label = `${px}px -> ${value}`;
+          const rpx = cleanZero(resultValue) + 'rpx';
+          const label = `${px}px -> ${rpx}`;
           return {
             type: 'pxToRpx',
             text,
             px: `${px}px`,
             pxValue: px,
             rpxValue: resultValue,
-            rpx: value,
-            value,
+            rpx: rpx,
+            value: rpx,
             label,
-            documentation: localize(
-              `pxToRpx.documentation`,
-              '**WXSS miniprogram style** Convert `{0}px` to `{1}` (the current device width is `{2}px` and screen width is `{3}px`, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify)',
-              px,
-              value,
-              cog.wxssDeviceWidth,
-              cog.wxssScreenWidth,
+            documentation: l10n.t(
+              '**WXSS miniprogram style** Convert `{px}px` to `{rpx}` (the current device width is `{wxssDeviceWidth}px` and screen width is `{wxssScreenWidth}px`)',
+              {
+                px,
+                rpx,
+                wxssDeviceWidth: cog.wxssDeviceWidth,
+                wxssScreenWidth: cog.wxssScreenWidth,
+              },
             ),
           };
         },
@@ -258,43 +250,45 @@ export function resetRules(): void {
         all: /([-]?[\d.]+)rpx/g,
         single: /([-]?[\d.]+)r(p|px)?$/,
         fn: text => {
-          const px = parseFloat(text);
-          const resultValue = +(px / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
-          const value = cleanZero(resultValue) + 'px';
-          const label = `${px}rpx -> ${value}px`;
+          const rpx = parseFloat(text);
+          const resultValue = +(rpx / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
+          const px = cleanZero(resultValue) + 'px';
+          const label = `${rpx}rpx -> ${px}px`;
           return {
             type: 'rpxToPx',
             text,
-            px: `${px}px`,
-            pxValue: px,
+            px: `${rpx}px`,
+            pxValue: rpx,
             rpxValue: resultValue,
-            rpx: value,
-            value,
+            rpx: px,
+            value: px,
             label,
-            documentation: localize(
-              `rpxToPx.documentation`,
-              '**WXSS miniprogram style** Convert `{0}rpx` to `{1}` (The current device width is `{2}px` and screen width is `{3}px`, please refer to [Configuration Document](https://github.com/cipchk/vscode-cssrem#configuration) modify)',
-              px,
-              value,
-              cog.wxssDeviceWidth,
-              cog.wxssScreenWidth,
+            documentation: l10n.t(
+              '**WXSS miniprogram style** Convert `{rpx}rpx` to `{px}` (The current device width is `{wxssDeviceWidth}px` and screen width is `{wxssScreenWidth}px`)',
+              {
+                rpx,
+                px,
+                wxssDeviceWidth: cog.wxssDeviceWidth,
+                wxssScreenWidth: cog.wxssScreenWidth,
+              },
             ),
           };
         },
         hover: /([-]?[\d.]+)rpx/,
         hoverFn: rpxText => {
           const rpx = parseFloat(rpxText);
-          const val = +(rpx / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
+          const px = +(rpx / (cog.wxssScreenWidth / cog.wxssDeviceWidth)).toFixed(cog.fixedDigits);
           return {
             type: 'rpxToPx',
             from: `${rpx}rpx`,
-            to: `${val}px`,
-            documentation: localize(
-              `rpxToPx.documentation.hover`,
-              '**WXSS miniprogram style** Converted from `{0}px` (The current device width is `{1}px` and screen width is `{2}px`)',
-              val,
-              cog.wxssDeviceWidth,
-              cog.wxssScreenWidth,
+            to: `${px}px`,
+            documentation: l10n.t(
+              '**WXSS miniprogram style** Converted from `{px}px` (The current device width is `{wxssDeviceWidth}px` and screen width is `{wxssScreenWidth}px`)',
+              {
+                px,
+                wxssDeviceWidth: cog.wxssDeviceWidth,
+                wxssScreenWidth: cog.wxssScreenWidth,
+              },
             ),
           };
         },
@@ -305,7 +299,7 @@ export function resetRules(): void {
         fn: text => {
           const type: Type = text.endsWith('rpx') ? 'rpxToPx' : 'pxToRpx';
           const rule = RULES.find(r => r.type === type);
-          return rule.fn(text);
+          return rule?.fn(text);
         },
       },
     );

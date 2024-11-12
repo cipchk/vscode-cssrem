@@ -4,7 +4,7 @@ import { CssRemProcess } from './process';
 import { isDisabledNextLine } from './ignore-comment';
 
 export default class implements CompletionItemProvider {
-  constructor(private lan: string, private process: CssRemProcess) {}
+  constructor(private _: string, private process: CssRemProcess) {}
 
   provideCompletionItems(document: TextDocument, position: Position): Thenable<CompletionItem[]> {
     if (isIngore(document.uri)) return Promise.resolve([]);
