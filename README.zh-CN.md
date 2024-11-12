@@ -6,9 +6,9 @@
 
 一个 `px` 与 `rem` 单位互转的 VSCode 插件，且支持WXSS微信小程序。
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/cipchk.cssrem?color=blue&logo=visual-studio)](https://marketplace.visualstudio.com/items?itemName=cipchk.cssrem&WT.mc_id=python-17801-anthonyshaw)
-[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/cipchk.cssrem?logo=visualstudio)](https://marketplace.visualstudio.com/items?itemName=cipchk.cssrem&WT.mc_id=python-17801-anthonyshaw)
-[![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/cipchk.cssrem?logo=visualstudio)](https://marketplace.visualstudio.com/items?itemName=cipchk.cssrem&WT.mc_id=python-17801-anthonyshaw)
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/cipchk.cssrem?color=blue&logo=visual-studio)](https://marketplace.visualstudio.com/items?itemName=cipchk.cssrem)
+[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/cipchk.cssrem?logo=visualstudio)](https://marketplace.visualstudio.com/items?itemName=cipchk.cssrem)
+[![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/cipchk.cssrem?logo=visualstudio)](https://marketplace.visualstudio.com/items?itemName=cipchk.cssrem)
 
 ![](demo.gif)
 
