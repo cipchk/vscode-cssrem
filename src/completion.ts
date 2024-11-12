@@ -3,7 +3,7 @@ import { cog, isIngore } from './config';
 import { CssRemProcess } from './process';
 
 export default class implements CompletionItemProvider {
-  constructor(private lan: string, private process: CssRemProcess) {}
+  constructor(private _: string, private process: CssRemProcess) {}
 
   provideCompletionItems(document: TextDocument, position: Position): Thenable<CompletionItem[]> {
     if (isIngore(document.uri)) return Promise.resolve([]);

@@ -4,8 +4,8 @@
   "fixedDigits": 3,
   "vw": true,
   "ignores": [
-    "**/*.less",
-    "*.tsx"
+    // "**/*.less",
+    // "*.tsx"
   ],
   "ignoresViaCommand": []
 }
