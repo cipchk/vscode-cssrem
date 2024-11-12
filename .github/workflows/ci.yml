@@ -36,7 +36,10 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock', '**/*.patch') }}
       - name: Install node modules
         run: yarn install --frozen-lockfile
-      - run: npm run test
+      - run: xvfb-run -a npm test
+        if: runner.os == 'Linux'
+      - run: npm test
+        if: runner.os != 'Linux'
 
   lint:
     runs-on: ubuntu-latest
