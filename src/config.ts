@@ -4,6 +4,7 @@ import { join } from 'path';
 import { Uri, workspace } from 'vscode';
 import { Config } from './interface';
 import { resetRules } from './rules';
+import { minimatch } from 'minimatch';
 
 export let cog!: Config;
 export const cssremConfigFileName = '.cssrem';
@@ -31,14 +32,14 @@ function loadConfigViaFile(): void {
 }
 
 function fixIngores(): void {
-  if (!Array.isArray(cog.ingores)) cog.ingores = [];
+  if (!Array.isArray(cog.ignores)) cog.ignores = [];
 
   if (workspace.workspaceFolders == null || workspace.workspaceFolders?.length <= 0) {
     return;
   }
 
   const rootPath = workspace.workspaceFolders[0].uri.path;
-  cog.ingores = cog.ingores.map(p => join(rootPath, p));
+  cog.ignores = cog.ignores.map(p => join(rootPath, p));
 }
 
 function fixLanguages(): void {
@@ -76,5 +77,5 @@ export function loadConfig(): void {
 }
 
 export function isIngore(uri: Uri) {
-  return cog.ingores.some(p => uri.path.startsWith(p));
+  return cog.ignores.some(p => minimatch(uri.path, p));
 }

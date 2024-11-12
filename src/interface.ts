@@ -20,9 +20,9 @@ export interface Config {
    */
   currentLine: 'disabled' | 'show';
   /**
-   * 忽略清单
+   * 忽略清单，支持 glob 表达式
    */
-  ingores: string[];
+  ignores: string[];
   /**
    * 支持语言清单
    */

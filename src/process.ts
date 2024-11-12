@@ -13,7 +13,7 @@ export class CssRemProcess {
     return res.map(i => i.rule.fn(i.text));
   }
 
-  convertAll(code: string, ingores: string[], type: Type): string {
+  convertAll(code: string, ignores: string[], type: Type): string {
     if (!code) {
       return code;
     }
@@ -21,7 +21,7 @@ export class CssRemProcess {
     const rule = RULES.find(w => w.type === type);
 
     return code.replace(rule.all, (word: string) => {
-      if (ingores.includes(word)) {
+      if (ignores.includes(word)) {
         return word;
       }
       const res = rule.fn(word);

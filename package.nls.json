@@ -11,7 +11,7 @@
   "cssrem.currentLine": "Whether to display mark in after line, default: show",
   "cssrem.currentLine.disabled": "Disabled",
   "cssrem.currentLine.show": "Show",
-  "cssrem.ingores": "Ignore file list, like this: `[ 'demo.less', 'src' ]`",
+  "cssrem.ignores": "Ignore file list, support glob, like this: `[ 'demo.less', '**/*.styles' ]`",
   "cssrem.languages": "Support language list `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'tpl', 'wxss', 'twig', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`, By default all include",
   "cssrem.remHover": "Whether to enable rem hover",
   "cssrem.vw": "Whether to enable VW switch px support",
