@@ -13,7 +13,7 @@ export class CssRemProcess {
     return res.map(i => i.rule.fn(i.text));
   }
 
-  convertAll(code: string, ingores: string[], type: Type): string {
+  convertAll(code: string, ignores: string[], type: Type): string {
     if (!code) {
       return code;
     }
@@ -21,7 +21,7 @@ export class CssRemProcess {
     const rule = RULES.find(w => w.type === type);
 
     return code.replace(rule.all, (word: string) => {
-      if (ingores.includes(word)) {
+      if (ignores.includes(word)) {
         return word;
       }
       const res = rule.fn(word);
@@ -53,7 +53,7 @@ export class CssRemProcess {
     return rule && rule.all.test(word) ? range : null;
   }
 
-  modifyDocument(textEditor: TextEditor, ingoresViaCommand: string[], type: Type): void {
+  modifyDocument(textEditor: TextEditor, ignoresViaCommand: string[], type: Type): void {
     const doc = textEditor.document;
     if (isIngore(doc.uri)) return;
 
@@ -73,7 +73,7 @@ export class CssRemProcess {
 
     const text = doc.getText(selection);
     textEditor.edit(builder => {
-      builder.replace(selection, this.convertAll(text, ingoresViaCommand, type));
+      builder.replace(selection, this.convertAll(text, ignoresViaCommand, type));
     });
   }
 }

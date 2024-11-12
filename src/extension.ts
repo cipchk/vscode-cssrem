@@ -26,41 +26,41 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(languages.registerHoverProvider(LANS, hoverProvider));
   }
 
-  const ingoresViaCommand = ((cog.ingoresViaCommand || []) as string[]).filter(w => !!w).map(v => (v.endsWith('px') ? v : `${v}px`));
+  const ignoresViaCommand = ((cog.ignoresViaCommand || []) as string[]).filter(w => !!w).map(v => (v.endsWith('px') ? v : `${v}px`));
   context.subscriptions.push(
     commands.registerTextEditorCommand('extension.cssrem', textEditor => {
-      process.modifyDocument(textEditor, ingoresViaCommand, 'pxToRem');
+      process.modifyDocument(textEditor, ignoresViaCommand, 'pxToRem');
     }),
     commands.registerTextEditorCommand('extension.cssrem.rem-to-px', textEditor => {
-      process.modifyDocument(textEditor, ingoresViaCommand, 'remToPx');
+      process.modifyDocument(textEditor, ignoresViaCommand, 'remToPx');
     }),
     commands.registerTextEditorCommand('extension.cssrem.rem-switch-px', textEditor => {
-      process.modifyDocument(textEditor, ingoresViaCommand, 'pxSwitchRem');
+      process.modifyDocument(textEditor, ignoresViaCommand, 'pxSwitchRem');
     }),
   );
   if (cog.vw) {
     context.subscriptions.push(
       commands.registerTextEditorCommand('extension.cssrem.px-to-vw', textEditor => {
-        process.modifyDocument(textEditor, ingoresViaCommand, 'pxToVw');
+        process.modifyDocument(textEditor, ignoresViaCommand, 'pxToVw');
       }),
       commands.registerTextEditorCommand('extension.cssrem.vw-to-px', textEditor => {
-        process.modifyDocument(textEditor, ingoresViaCommand, 'vwToPx');
+        process.modifyDocument(textEditor, ignoresViaCommand, 'vwToPx');
       }),
       commands.registerTextEditorCommand('extension.cssrem.vw-switch-px', textEditor => {
-        process.modifyDocument(textEditor, ingoresViaCommand, 'vwSwitchPx');
+        process.modifyDocument(textEditor, ignoresViaCommand, 'vwSwitchPx');
       }),
     );
   }
   if (cog.wxss) {
     context.subscriptions.push(
       commands.registerTextEditorCommand('extension.cssrem.px-to-rpx', textEditor => {
-        process.modifyDocument(textEditor, ingoresViaCommand, 'pxToRpx');
+        process.modifyDocument(textEditor, ignoresViaCommand, 'pxToRpx');
       }),
       commands.registerTextEditorCommand('extension.cssrem.rpx-to-px', textEditor => {
-        process.modifyDocument(textEditor, ingoresViaCommand, 'rpxToPx');
+        process.modifyDocument(textEditor, ignoresViaCommand, 'rpxToPx');
       }),
       commands.registerTextEditorCommand('extension.cssrem.rpx-switch-px', textEditor => {
-        process.modifyDocument(textEditor, ingoresViaCommand, 'rpxSwitchPx');
+        process.modifyDocument(textEditor, ignoresViaCommand, 'rpxSwitchPx');
       }),
     );
   }

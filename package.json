@@ -133,13 +133,13 @@
           "default": true,
           "description": "%cssrem.autoRemovePrefixZero%"
         },
-        "cssrem.ingoresViaCommand": {
+        "cssrem.ignoresViaCommand": {
           "type": "array",
           "items": {
             "type": "string"
           },
           "default": [],
-          "description": "%cssrem.ingoresViaCommand%"
+          "description": "%cssrem.ignoresViaCommand%"
         },
         "cssrem.addMark": {
           "type": "boolean",
@@ -161,13 +161,13 @@
           ],
           "description": "%cssrem.hover%"
         },
-        "cssrem.ingores": {
+        "cssrem.ignores": {
           "type": "array",
           "default": [],
           "items": {
             "type": "string"
           },
-          "description": "%cssrem.ingores%"
+          "description": "%cssrem.ignores%"
         },
         "cssrem.languages": {
           "type": "array",
@@ -265,6 +265,7 @@
   },
   "dependencies": {
     "jsonc-parser": "^3.0.0",
+    "minimatch": "^10.0.1",
     "vscode-nls": "^5.0.0"
   },
   "packageManager": "yarn@4.5.0"

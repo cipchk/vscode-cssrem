@@ -6,7 +6,7 @@ export interface Config {
   /** Automatically remove prefix 0, default: true */
   autoRemovePrefixZero: boolean;
   /** Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: [] */
-  ingoresViaCommand: string[];
+  ignoresViaCommand: string[];
   /**
    * Whether to enabled mark, default: false
    */
@@ -20,9 +20,9 @@ export interface Config {
    */
   currentLine: 'disabled' | 'show';
   /**
-   * 忽略清单
+   * 忽略清单，支持 glob 表达式
    */
-  ingores: string[];
+  ignores: string[];
   /**
    * 支持语言清单
    */

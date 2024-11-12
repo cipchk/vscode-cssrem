@@ -19,7 +19,7 @@
       "default": true,
       "description": "Automatically remove prefix 0"
     },
-    "ingoresViaCommand": {
+    "ignoresViaCommand": {
       "type": "array",
       "default": [],
       "description": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`",
@@ -44,10 +44,10 @@
       "default": "show",
       "description": "Whether to display mark in after line, `disabled`: Disabled, `show` Show"
     },
-    "ingores": {
+    "ignores": {
       "type": "array",
       "default": [],
-      "description": "忽略清单",
+      "description": "忽略清单，支持 glob 表达式",
       "items": {
         "type": "string"
       }

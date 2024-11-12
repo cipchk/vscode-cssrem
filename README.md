@@ -50,11 +50,11 @@ Secondly, you can also configure the global. Open your user and workspace settin
 | `cssrem.rootFontSize` | Root font-size (Unit: `px`) | `16` |
 | `cssrem.fixedDigits` | Keeping decimal point maximum length | `4` |
 | `cssrem.autoRemovePrefixZero` | Automatically remove prefix 0 | `true` |
-| `cssrem.ingoresViaCommand` | Ignores `px` to `rem` when trigger command (Unit: `string[]`), can be set `[ "1px", "0.5px" ]` | `[]` |
+| `cssrem.ignoresViaCommand` | Ignores `px` to `rem` when trigger command (Unit: `string[]`), can be set `[ "1px", "0.5px" ]` | `[]` |
 | `cssrem.addMark` | Whether to enabled mark | `false` |
 | `cssrem.hover` | Whether to enable display conversion data on hover, `disabled`: Disabled, `always` Anything, `onlyMark`: Only valid when `cssrem.addMark` is `true` | `onlyMark` |
 | `cssrem.currentLine` | Whether to display mark in after line, `disabled`: Disabled, `show` Show | `show` |
-| `cssrem.ingores` | Ignore file list, like this: `[ 'demo.less', 'src' ]` | `string[]` |
+| `cssrem.ignores` | Ignore file list, support glob, like this: `[ 'demo.less', '**/*.styles' ]` | `string[]` |
 | `cssrem.languages` | Support language list `[ 'html', 'vue', 'css', 'postcss', 'less', 'scss', 'sass', 'stylus', 'tpl', 'wxss', 'twig', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' ]`, By default all include | `string[]` |
 | `cssrem.remHover` | Whether to enable rem hover | `true` |
 | `cssrem.vw` | Whether to enable VW switch px support | `false` |

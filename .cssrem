@@ -2,5 +2,10 @@
   "$schema": "https://raw.githubusercontent.com/cipchk/vscode-cssrem/master/schema.json",
   "rootFontSize": 24,
   "fixedDigits": 3,
-  "vw": true
+  "vw": true,
+  "ignores": [
+    "**/*.less",
+    "*.tsx"
+  ],
+  "ignoresViaCommand": []
 }
