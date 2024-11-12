@@ -25,6 +25,18 @@
 + 光标至 `14px` 上，按下 `Alt + z` 对应转化 `rem`
 + 通过 `F1` 面板查找：`cssrem`
 
+## 忽略代码
+
+你可以忽略：
+- 通过 `.cssrem` 或 `.vscode/settings.json` 设置 `ignores` 忽略整个文件
+- 通过使用 `// cssrem-disable-next-line` 表示忽略下一行的处理
+
+```less
+// cssrem-disable-next-line
+@media (min-width: 768px) {}
+```
+> 以上代码将忽略 `768px` 的处理
+
 # 支持语言
 
 html vue css less scss sass stylus tpl(php smarty3) tsx jsx

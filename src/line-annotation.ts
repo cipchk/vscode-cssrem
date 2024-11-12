@@ -13,6 +13,7 @@ import {
 import { cog, isIngore } from './config';
 import { HoverResult } from './interface';
 import { RULES } from './rules';
+import { isDisabledNextLine } from './ignore-comment';
 
 const annotationDecoration = window.createTextEditorDecorationType({
   after: {
@@ -93,6 +94,7 @@ export class LineAnnotation implements Disposable {
   private genMessage(doc: TextDocument, lineNumber: number): string | null {
     const text = doc.lineAt(lineNumber).text.trim();
     if (text.length <= 0) return null;
+    if (isDisabledNextLine(doc, lineNumber)) return null;
     const values = text.match(/([.0-9]+(px|rem|rpx|vw))/g);
     if (values == null) return null;
 
