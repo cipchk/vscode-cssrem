@@ -50,7 +50,7 @@ export class LineAnnotation implements Disposable {
     if (!this.isTextEditor(e.textEditor)) return;
 
     const selections = this.toLineSelections(e.selections);
-    if (selections.length === 0 || !selections.every(s => s.active === s.anchor)) {
+    if (selections?.length === 0 || !selections?.every(s => s.active === s.anchor)) {
       this.clear(e.textEditor);
       return;
     }
@@ -59,7 +59,7 @@ export class LineAnnotation implements Disposable {
   }
 
   private async refresh(editor: TextEditor | undefined, selection: LineSelection) {
-    if (editor.document == null || (editor == null && this._editor == null)) return;
+    if (editor?.document == null || (editor == null && this._editor == null)) return;
 
     if (this._editor !== editor) {
       this.clear(this._editor);
@@ -97,7 +97,7 @@ export class LineAnnotation implements Disposable {
     if (values == null) return null;
 
     const results = values
-      .map(str => ({ text: str, rule: RULES.filter(w => w.hover && w.hover.test(str)).map(h => h.hoverFn(str)) }))
+      .map(str => ({ text: str, rule: RULES.filter(w => w.hover && w.hover.test(str) && w.hoverFn != null).map(h => h.hoverFn!(str)) }))
       .filter(item => item.rule.length > 0);
 
     if (results.length <= 0) return null;
@@ -138,10 +138,10 @@ export class LineAnnotation implements Disposable {
 
   dispose() {
     this.clearAnnotations(this._editor);
-    this._disposable.dispose();
+    this._disposable?.dispose();
   }
 
-  toLineSelections(selections: readonly Selection[] | undefined): LineSelection[] {
+  toLineSelections(selections: readonly Selection[] | undefined): LineSelection[] | undefined {
     return selections?.map(s => ({ active: s.active.line, anchor: s.anchor.line }));
   }
 }

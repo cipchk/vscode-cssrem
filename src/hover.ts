@@ -24,8 +24,8 @@ export default class implements HoverProvider {
     if (!text) {
       return null;
     }
-    let results = RULES.filter(w => w.hover && w.hover.test(text))
-      .map(rule => rule.hoverFn(text))
+    let results = RULES.filter(w => w.hover && w.hover.test(text) && w.hoverFn != null)
+      .map(rule => rule.hoverFn!(text))
       .filter(h => h != null && h.documentation);
     if (cog.hover === 'onlyMark') {
       results = results.filter(w => !line.includes(`/* ${w.type} */`));

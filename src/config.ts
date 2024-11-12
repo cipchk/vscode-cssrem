@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'fs';
-import { parse } from 'jsonc-parser';
+import * as JSONC from 'jsonc-parser';
 import { join } from 'path';
 import { Uri, workspace } from 'vscode';
 import { Config } from './interface';
@@ -20,7 +20,7 @@ function loadConfigViaFile(): void {
     return;
   }
   try {
-    const res = parse(readFileSync(cssremConfigPath).toString('utf-8'));
+    const res = JSONC.parse(readFileSync(cssremConfigPath).toString('utf-8'));
     cog = {
       ...cog,
       ...res,
@@ -60,7 +60,7 @@ function fixLanguages(): void {
 export function loadConfig(): void {
   cog = { ...(workspace.getConfiguration('cssrem') as any) };
   Object.keys(cog).forEach(key => {
-    if (typeof cog[key] === 'function') delete cog[key];
+    if (typeof (cog as any)[key] === 'function') delete (cog as any)[key];
   });
   loadConfigViaFile();
   fixIngores();
