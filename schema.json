@@ -19,7 +19,7 @@
       "default": true,
       "description": "Automatically remove prefix 0"
     },
-    "ingoresViaCommand": {
+    "ignoresViaCommand": {
       "type": "array",
       "default": [],
       "description": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`",

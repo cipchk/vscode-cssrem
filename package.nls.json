@@ -2,7 +2,7 @@
   "cssrem.rootFontSize": "root font-size (unit: px), default: 16",
   "cssrem.fixedDigits": "Px to rem decimal point maximum length, default: 4",
   "cssrem.autoRemovePrefixZero": "Automatically remove prefix 0, default: true",
-  "cssrem.ingoresViaCommand": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: []",
+  "cssrem.ignoresViaCommand": "Ignores `px` to `rem` when trigger command, can be set `[ \"1px\", \"0.5px\" ]`, default: []",
   "cssrem.addMark": "Whether to enabled mark, default: false",
   "cssrem.hover": "Whether to enable display conversion data on hover, default: true",
   "cssrem.hover.disabled": "Disabled",

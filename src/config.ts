@@ -33,13 +33,6 @@ function loadConfigViaFile(): void {
 
 function fixIngores(): void {
   if (!Array.isArray(cog.ignores)) cog.ignores = [];
-
-  if (workspace.workspaceFolders == null || workspace.workspaceFolders?.length <= 0) {
-    return;
-  }
-
-  const rootPath = workspace.workspaceFolders[0].uri.path;
-  cog.ignores = cog.ignores.map(p => join(rootPath, p));
 }
 
 function fixLanguages(): void {
