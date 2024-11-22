@@ -1,0 +1,13 @@
+{
+  "Convert `{px}px` to `{value}` (the current benchmark font-size is `{rootFontSize}px`": "將 `{px}px` 轉換為 `{value}` (當前基準字號為 `{rootFontSize}px`",
+  "Converted from `{rem}rem` according to the benchmark font-size is `{rootFontSize}px`": "由 `{rem}rem` 根據基準字號 `{rootFontSize}px` 轉換而來",
+  "Convert {px}rem to {value} (the current benchmark font-size is {rootFontSize}px": "將 `{px}rem` 轉換為 `{value}` (當前基準字號為 `{rootFontSize}px`",
+  "Converted from `{px}px` according to the benchmark font-size is `{rootFontSize}px`": "由 `{px}px` 根據基準字號 `{rootFontSize}px` 轉換而來",
+  "Convert `{px}px` to `{vw}` (current device width `{vwDesign}px`, base font size is `{rootFontSize}px`)": "將 `{px}px` 轉換為 `{vw}` (當前設備寬度 `{vwDesign}px`, 基準字號為 `{rootFontSize}px`)",
+  "Convert `{px}px` to `{vw}vw` (current device width `{vwDesign}px`, base font size is `{rootFontSize}px`)": "由 `{px}px` 轉換為 `{vw}vm` (當前設備寬度 `{vwDesign}px`, 基準字號為 `{rootFontSize}px`)",
+  "Convert `{vw}vw` to `{px}` (current device width `{vwDesign}px`, base font size is `{rootFontSize}px`)": "將 `{vw}vw` 轉換為 `{px}` (當前設備寬度 `{vwDesign}px`, 基準字號為 `{rootFontSize}px`)",
+  "Converted from `{px}px` (current device width `{vwDesign}px`, base font size is `{rootFontSize}px`)": "由 `{px}px` 轉換而來(當前設備寬度 `{vwDesign}px`, 基準字號為 `{rootFontSize}px`)",
+  "**WXSS miniprogram style** Convert `{px}px` to `{rpx}` (the current device width is `{wxssDeviceWidth}px` and screen width is `{wxssScreenWidth}px`)": "**WXSS小程序樣式** 將 `{px}px` 轉換為 `{rpx}` (當前設備寬度 `{wxssDeviceWidth}px`、基準屏幕 `{wxssScreenWidth}px`",
+  "**WXSS miniprogram style** Convert `{rpx}rpx` to `{px}` (The current device width is `{wxssDeviceWidth}px` and screen width is `{wxssScreenWidth}px`)": "**WXSS小程序樣式** 將 `{rpx}rpx` 轉換為 `{px}` (當前設備寬度 `{wxssDeviceWidth}px`、基準屏幕 `{wxssScreenWidth}px`",
+  "**WXSS miniprogram style** Converted from `{px}px` (The current device width is `{wxssDeviceWidth}px` and screen width is `{wxssScreenWidth}px`)": "**WXSS小程序樣式** 由 `{px}px` 轉換而來(當前設備寬度 `{wxssDeviceWidth}px`、基準屏幕 `{wxssScreenWidth}px`）"
+}
