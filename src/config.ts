@@ -1,33 +1,40 @@
-import { existsSync, readFileSync } from 'fs';
 import * as JSONC from 'jsonc-parser';
-import { join } from 'path';
 import { Uri, workspace } from 'vscode';
 import { Config } from './interface';
 import { resetRules } from './rules';
 import { minimatch } from 'minimatch';
+import { findUri, readFile } from './fs';
 
 export let cog!: Config;
 export const cssremConfigFileName = '.cssrem';
 
-function loadConfigViaFile(): void {
-  if (workspace.workspaceFolders == null || workspace.workspaceFolders?.length <= 0) {
+async function loadConfigViaFile(): Promise<void> {
+  if (
+    workspace.workspaceFolders == null ||
+    workspace.workspaceFolders?.length <= 0
+  ) {
     return;
   }
 
-  const cssremConfigPath = join(workspace.workspaceFolders[0].uri.fsPath, cssremConfigFileName);
-  if (!existsSync(cssremConfigPath)) {
-    console.log(`Not found file: ${cssremConfigPath}`);
+  const cssremConfigUri = await findUri(cssremConfigFileName);
+  if (cssremConfigUri == null) {
+    console.log(`Not found file: ${cssremConfigUri}`);
+    return;
+  }
+  const cogText = await readFile(cssremConfigUri);
+  if (cogText == null) {
+    console.log(`Can't read file: ${cssremConfigUri}`);
     return;
   }
   try {
-    const res = JSONC.parse(readFileSync(cssremConfigPath).toString('utf-8'));
+    const res = JSONC.parse(cogText);
     cog = {
       ...cog,
       ...res,
     };
-    console.warn(`Use override config via ${cssremConfigPath} file`);
+    console.warn(`Use override config via ${cssremConfigUri} file`);
   } catch (ex) {
-    console.warn(`Parse error in ${cssremConfigPath}`, ex);
+    console.warn(`Parse error in ${cssremConfigUri}`, ex);
   }
 }
 
@@ -57,12 +64,12 @@ function fixLanguages(): void {
   ];
 }
 
-export function loadConfig(): void {
+export async function loadConfig(): Promise<void> {
   cog = { ...(workspace.getConfiguration('cssrem') as any) };
-  Object.keys(cog).forEach(key => {
+  Object.keys(cog).forEach((key) => {
     if (typeof (cog as any)[key] === 'function') delete (cog as any)[key];
   });
-  loadConfigViaFile();
+  await loadConfigViaFile();
   fixIngores();
   fixLanguages();
   resetRules();
@@ -70,5 +77,5 @@ export function loadConfig(): void {
 }
 
 export function isIngore(uri: Uri) {
-  return cog.ignores.some(p => minimatch(uri.path, p));
+  return cog.ignores.some((p) => minimatch(uri.path, p));
 }
