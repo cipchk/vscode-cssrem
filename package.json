@@ -8,12 +8,10 @@
   "license": "MIT",
   "licenseUrl": "LICENSE",
   "scripts": {
-    "vscode:prepublish": "yarn run package",
-    "compile": "yarn run check-types && yarn run lint && node esbuild.js",
-    "watch": "npm-run-all -p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
-    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "yarn run check-types && yarn run lint && node esbuild.js --production",
+    "vscode:prepublish": "npm run check-types && tsx ./scripts/esbuild.js --production",
+    "compile": "yarn run check-types && yarn run lint && tsx ./scripts/esbuild.js",
+    "watch": "tsx ./scripts/esbuild.js --watch",
+    "package": "yarn run lint && yarn run check-types && tsx ./scripts/esbuild.js --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
@@ -25,6 +23,7 @@
   },
   "l10n": "./l10n",
   "main": "./out/extension",
+  "browser": "./out/extension.web",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -272,7 +271,7 @@
     "conventional-changelog-cli": "^5.0.0",
     "esbuild": "^0.24.0",
     "eslint": "^9.13.0",
-    "npm-run-all": "^4.1.5",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   },
   "dependencies": {

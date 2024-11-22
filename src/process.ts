@@ -1,12 +1,12 @@
-import { ConvertResult, Rule, RuleOPType, Type } from "./interface";
-import { RULES } from "./rules";
-import { Position, Range, Selection, TextEditor } from "vscode";
-import { isIngore } from "./config";
-import { isDisabledNextLineViaText } from "./ignore-comment";
+import { ConvertResult, Rule, RuleOPType, Type } from './interface';
+import { RULES } from './rules';
+import { Position, Range, Selection, TextEditor } from 'vscode';
+import { isIngore } from './config';
+import { isDisabledNextLineViaText } from './ignore-comment';
 
 export class CssRemProcess {
   convert(text: string): ConvertResult[] | null {
-    const res = this.getRule("single", text);
+    const res = this.getRule('single', text);
     if (res.length === 0) {
       return null;
     }
@@ -24,7 +24,7 @@ export class CssRemProcess {
       return code;
     }
 
-    const lines = code.split("\n");
+    const lines = code.split('\n');
 
     const result = lines
       .map((line, lineIndex) => {
@@ -42,7 +42,7 @@ export class CssRemProcess {
           return word;
         });
       })
-      .join("\n");
+      .join('\n');
     return result;
   }
 
@@ -83,7 +83,7 @@ export class CssRemProcess {
 
     let selection: Selection | Range = textEditor.selection;
     // When the cursor is in the valid range in switch mode
-    if (selection.isEmpty && type.toLowerCase().includes("switch")) {
+    if (selection.isEmpty && type.toLowerCase().includes('switch')) {
       const wordRange = this.getWordRange(textEditor, type);
       if (wordRange) {
         selection = wordRange;

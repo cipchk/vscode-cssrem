@@ -66,7 +66,16 @@ export interface Rule {
   hoverFn?: (text: string) => HoverResult;
 }
 
-export type Type = 'pxToRem' | 'remToPx' | 'pxSwitchRem' | 'pxToVw' | 'vwToPx' | 'vwSwitchPx' | 'pxToRpx' | 'rpxToPx' | 'rpxSwitchPx';
+export type Type =
+  | 'pxToRem'
+  | 'remToPx'
+  | 'pxSwitchRem'
+  | 'pxToVw'
+  | 'vwToPx'
+  | 'vwSwitchPx'
+  | 'pxToRpx'
+  | 'rpxToPx'
+  | 'rpxSwitchPx';
 
 export type RuleOPType = 'single' | 'all';
 

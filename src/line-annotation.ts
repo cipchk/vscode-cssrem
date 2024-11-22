@@ -36,13 +36,18 @@ export class LineAnnotation implements Disposable {
   constructor() {
     this._disposable = Disposable.from(
       window.onDidChangeActiveTextEditor(this.onActiveTextEditor, this),
-      window.onDidChangeTextEditorSelection(this.onTextEditorSelectionChanged, this),
+      window.onDidChangeTextEditorSelection(
+        this.onTextEditorSelectionChanged,
+        this
+      )
     );
   }
 
   private onActiveTextEditor(e: TextEditor | undefined) {
     if (e == null) return;
-    this._enabled = cog.languages.includes(e.document.languageId) && !isIngore(e.document.uri);
+    this._enabled =
+      cog.languages.includes(e.document.languageId) &&
+      !isIngore(e.document.uri);
   }
 
   private onTextEditorSelectionChanged(e: TextEditorSelectionChangeEvent) {
@@ -51,7 +56,10 @@ export class LineAnnotation implements Disposable {
     if (!this.isTextEditor(e.textEditor)) return;
 
     const selections = this.toLineSelections(e.selections);
-    if (selections?.length === 0 || !selections?.every(s => s.active === s.anchor)) {
+    if (
+      selections?.length === 0 ||
+      !selections?.every((s) => s.active === s.anchor)
+    ) {
       this.clear(e.textEditor);
       return;
     }
@@ -59,8 +67,12 @@ export class LineAnnotation implements Disposable {
     this.refresh(e.textEditor, selections[0]);
   }
 
-  private async refresh(editor: TextEditor | undefined, selection: LineSelection) {
-    if (editor?.document == null || (editor == null && this._editor == null)) return;
+  private async refresh(
+    editor: TextEditor | undefined,
+    selection: LineSelection
+  ) {
+    if (editor?.document == null || (editor == null && this._editor == null))
+      return;
 
     if (this._editor !== editor) {
       this.clear(this._editor);
@@ -77,7 +89,9 @@ export class LineAnnotation implements Disposable {
     const decoration: DecorationOptions = {
       renderOptions: {
         after: {
-          backgroundColor: new ThemeColor('extension.cssrem.trailingLineBackgroundColor'),
+          backgroundColor: new ThemeColor(
+            'extension.cssrem.trailingLineBackgroundColor'
+          ),
           color: new ThemeColor('extension.cssrem.trailingLineForegroundColor'),
           contentText: message,
           fontWeight: 'normal',
@@ -85,7 +99,9 @@ export class LineAnnotation implements Disposable {
           textDecoration: 'none',
         },
       },
-      range: editor.document.validateRange(new Range(l, Number.MAX_SAFE_INTEGER, l, Number.MAX_SAFE_INTEGER)),
+      range: editor.document.validateRange(
+        new Range(l, Number.MAX_SAFE_INTEGER, l, Number.MAX_SAFE_INTEGER)
+      ),
     };
 
     editor.setDecorations(annotationDecoration, [decoration]);
@@ -99,13 +115,18 @@ export class LineAnnotation implements Disposable {
     if (values == null) return null;
 
     const results = values
-      .map(str => ({ text: str, rule: RULES.filter(w => w.hover && w.hover.test(str) && w.hoverFn != null).map(h => h.hoverFn!(str)) }))
-      .filter(item => item.rule.length > 0);
+      .map((str) => ({
+        text: str,
+        rule: RULES.filter(
+          (w) => w.hover && w.hover.test(str) && w.hoverFn != null
+        ).map((h) => h.hoverFn!(str)),
+      }))
+      .filter((item) => item.rule.length > 0);
 
     if (results.length <= 0) return null;
     if (results.length === 1) return this.genMessageItem(results[0].rule);
 
-    return results.map(res => this.genMessageItem(res.rule)).join(', ');
+    return results.map((res) => this.genMessageItem(res.rule)).join(', ');
   }
 
   private genMessageItem(rules: HoverResult[]): string {
@@ -114,7 +135,7 @@ export class LineAnnotation implements Disposable {
       `${rules[0].to}->${rules[0].from}(` +
       rules
         .slice(1)
-        .map(v => `${v.to}->${v.from}`)
+        .map((v) => `${v.to}->${v.from}`)
         .join(',') +
       ')'
     );
@@ -143,7 +164,12 @@ export class LineAnnotation implements Disposable {
     this._disposable?.dispose();
   }
 
-  toLineSelections(selections: readonly Selection[] | undefined): LineSelection[] | undefined {
-    return selections?.map(s => ({ active: s.active.line, anchor: s.anchor.line }));
+  toLineSelections(
+    selections: readonly Selection[] | undefined
+  ): LineSelection[] | undefined {
+    return selections?.map((s) => ({
+      active: s.active.line,
+      anchor: s.anchor.line,
+    }));
   }
 }
