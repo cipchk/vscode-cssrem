@@ -1,3 +1,12 @@
+## [4.1.1](https://github.com/cipchk/vscode-cssrem/compare/4.1.0...4.1.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* fix character can't be parsed as a number ([#79](https://github.com/cipchk/vscode-cssrem/issues/79)) ([f9fd4aa](https://github.com/cipchk/vscode-cssrem/commit/f9fd4aafcb487e9b8f85f2a42835596044338033))
+
+
+
 # [4.1.0](https://github.com/cipchk/vscode-cssrem/compare/4.0.0...4.1.0) (2024-11-22)
 
 
