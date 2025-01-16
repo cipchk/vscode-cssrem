@@ -22,6 +22,7 @@ export function resetRules(): void {
       single: /([-]?[\d.]+)px?$/,
       fn: (text) => {
         const px = parseFloat(text);
+        if (isNaN(px)) return null;
         const resultValue = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
         const value = cleanZero(resultValue) + 'rem';
         const label = `${px}px -> ${value}`;
@@ -47,6 +48,7 @@ export function resetRules(): void {
       hover: cog.remHover ? /([-]?[\d.]+)px/ : null,
       hoverFn: (pxText) => {
         const px = parseFloat(pxText);
+        if (isNaN(px)) return null;
         const rem = +(px / cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
           type: 'remToPx',
@@ -64,10 +66,11 @@ export function resetRules(): void {
     },
     {
       type: 'remToPx',
-      all: /([-]?[\d.]+)rem/g,
+      all: /([-]?[\d.]+)(rem)/g,
       single: /([-]?[\d.]+)r(e|em)?$/,
       fn: (text) => {
         const px = parseFloat(text);
+        if (isNaN(px)) return null;
         const resultValue = +(px * cog.rootFontSize).toFixed(cog.fixedDigits);
         const value = cleanZero(resultValue) + 'px';
         const label = `${px}rem -> ${value}`;
@@ -93,6 +96,7 @@ export function resetRules(): void {
       hover: /([-]?[\d.]+)rem/,
       hoverFn: (remText) => {
         const rem = parseFloat(remText);
+        if (isNaN(rem)) return null;
         const px = +(rem * cog.rootFontSize).toFixed(cog.fixedDigits);
         return {
           type: 'remToPx',
@@ -126,6 +130,7 @@ export function resetRules(): void {
         single: /([-]?[\d.]+)px?$/,
         fn: (text) => {
           const px = parseFloat(text);
+          if (isNaN(px)) return null;
           const resultValue = +(px / (cog.vwDesign / 100.0)).toFixed(
             cog.fixedDigits
           );
@@ -154,6 +159,7 @@ export function resetRules(): void {
         hover: cog.vwHover ? /([-]?[\d.]+)px/ : null,
         hoverFn: (pxText) => {
           const px = parseFloat(pxText);
+          if (isNaN(px)) return null;
           const vw = +(px / (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
           return {
             type: 'pxToVw',
@@ -177,6 +183,7 @@ export function resetRules(): void {
         single: /([-]?[\d.]+)vw?$/,
         fn: (text) => {
           const vw = parseFloat(text);
+          if (isNaN(vw)) return null;
           const resultValue = +(vw * (cog.vwDesign / 100.0)).toFixed(
             cog.fixedDigits
           );
@@ -205,6 +212,7 @@ export function resetRules(): void {
         hover: /([-]?[\d.]+)vw/,
         hoverFn: (rpxText) => {
           const vw = parseFloat(rpxText);
+          if (isNaN(vw)) return null;
           const px = +(vw * (cog.vwDesign / 100.0)).toFixed(cog.fixedDigits);
           return {
             type: 'vwToPx',
@@ -240,6 +248,7 @@ export function resetRules(): void {
         single: /([-]?[\d.]+)px?$/,
         fn: (text) => {
           const px = parseFloat(text);
+          if (isNaN(px)) return null;
           const resultValue = +(
             px *
             (cog.wxssScreenWidth / cog.wxssDeviceWidth)
@@ -273,6 +282,7 @@ export function resetRules(): void {
         single: /([-]?[\d.]+)r(p|px)?$/,
         fn: (text) => {
           const rpx = parseFloat(text);
+          if (isNaN(rpx)) return null;
           const resultValue = +(
             rpx /
             (cog.wxssScreenWidth / cog.wxssDeviceWidth)
@@ -302,6 +312,7 @@ export function resetRules(): void {
         hover: /([-]?[\d.]+)rpx/,
         hoverFn: (rpxText) => {
           const rpx = parseFloat(rpxText);
+          if (isNaN(rpx)) return null;
           const px = +(
             rpx /
             (cog.wxssScreenWidth / cog.wxssDeviceWidth)

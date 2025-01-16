@@ -11,7 +11,7 @@ export class CssRemProcess {
       return null;
     }
 
-    return res.map((i) => i.rule.fn(i.text)!);
+    return res.map((i) => i.rule.fn(i.text)).filter((w) => w != null);
   }
 
   private convertAll(code: string, ignores: string[], type: Type): string {
