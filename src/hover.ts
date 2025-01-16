@@ -41,14 +41,14 @@ export default class implements HoverProvider {
       .map((rule) => rule.hoverFn!(text))
       .filter((h) => h != null && h.documentation);
     if (cog.hover === 'onlyMark') {
-      results = results.filter((w) => !line.includes(`/* ${w.type} */`));
+      results = results.filter((w) => !line.includes(`/* ${w!.type} */`));
     }
     if (results.length === 0) return null;
     if (results.length === 1)
-      return new Hover(new MarkdownString(results[0].documentation));
+      return new Hover(new MarkdownString(results[0]!.documentation));
 
     return new Hover(
-      new MarkdownString(results.map((h) => `- ${h.documentation}`).join('\n'))
+      new MarkdownString(results.map((h) => `- ${h!.documentation}`).join('\n'))
     );
   }
 }

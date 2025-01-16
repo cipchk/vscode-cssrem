@@ -119,7 +119,9 @@ export class LineAnnotation implements Disposable {
         text: str,
         rule: RULES.filter(
           (w) => w.hover && w.hover.test(str) && w.hoverFn != null
-        ).map((h) => h.hoverFn!(str)),
+        )
+          .map((h) => h.hoverFn!(str))
+          .filter((h) => h != null),
       }))
       .filter((item) => item.rule.length > 0);
 

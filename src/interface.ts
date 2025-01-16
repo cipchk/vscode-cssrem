@@ -61,9 +61,9 @@ export interface Rule {
   type: Type;
   all: RegExp;
   single?: RegExp;
-  fn: (text: string) => ConvertResult | undefined;
+  fn: (text: string) => ConvertResult | undefined | null;
   hover?: RegExp | null;
-  hoverFn?: (text: string) => HoverResult;
+  hoverFn?: (text: string) => HoverResult | undefined | null;
 }
 
 export type Type =
