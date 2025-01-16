@@ -79,3 +79,10 @@ export async function loadConfig(): Promise<void> {
 export function isIngore(uri: Uri) {
   return cog.ignores.some((p) => minimatch(uri.path, p));
 }
+
+export function testConfig(c: Partial<Config>) {
+  cog = { ...c } as unknown as Config;
+  fixIngores();
+  fixLanguages();
+  resetRules();
+}
